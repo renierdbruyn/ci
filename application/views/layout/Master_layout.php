@@ -2,9 +2,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>Master Page</title>
-            <link rel="stylesheet" href="<?php echo base_url();?>assets/css/bootstrap.css" type="text/css" media="screen" >
-<?php //$this->load->view($style); ?>
-    <style type="text/css" >       
+    <style type="text/css" >
+        
+        
+        
         *{ margin:0px; padding: 0px; }
         body{background: #fff;}
         #navcon { background: #fff; width: 100%; height:80px}
@@ -31,8 +32,8 @@
 <div id="nav">
 <ul>
 	<li><?php echo img('assets/img/ycr.jpg'); ?><!--<image rel="Logo" href="/assets/img/ycr.jpg" width="250px" height="80px"/>--></li>
-    <li class="first"><?php echo anchor('welcome/index', 'Home'); echo br(); ?> </li>
-    <li><?php echo anchor('site/index', 'Crud'); echo br(); ?></li>
+    <li class="first"><a href="membership.html">Home </a>   </li>
+    <li><a href="#">About Me</a></li>
    <li class="top"><a href="#">Portfolio</a>
             <ul>
                 <li><a  href="#">Print</a></li>

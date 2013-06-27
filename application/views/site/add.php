@@ -10,18 +10,18 @@ echo anchor('site/delete', 'delete Applicant'); echo br();
 <?php echo form_open('site/add'); ?>
 <p> 
     <label for="id">ID:</label>
-<input type="text" name="id" value="" size="13"/>
+<input type="text" name="id" id="id"/>
 </p>
 <p> 
     <label for="name">Name:</label>
-<input type="text" name="name" id="name" value=""/>
+<input type="text" name="name" id="name"/>
 </p>
 <p> 
     <label for="number">Number:</label>
-<input type="text" name="number" id="number" value="" size="10"/>
+<input type="text" name="number" id="number"/>
 </p>
 <p> 
-<input type="submit" name ="submit" value="SUBMIT"/>
+<input type="submit" value="SUBMIT"/>
 </p>
 
 <?php echo form_close(); ?>

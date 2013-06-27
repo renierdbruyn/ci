@@ -4,12 +4,12 @@
 
 <?php
 echo anchor('site/index', 'Home'); echo br();
-echo anchor('site/add', 'add Applicant'); echo br();
-echo anchor('site/edit', 'edit Applicant'); echo br();
+//echo anchor('site/add', 'add Applicant'); echo br();
+//echo anchor('site/edit', 'edit Applicant'); echo br();
 //echo anchor('site/delete', 'delete Applicant'); echo br();
 ?>
-<!--<h2>CREATE</h2>
-<?php // echo form_open('site/add'); ?>
+<h2>CREATE</h2>
+<?php echo form_open('site/add'); ?>
 <p> 
     <label for="name">Name:</label>
 <input type="text" name="name" id="name"/>
@@ -22,14 +22,14 @@ echo anchor('site/edit', 'edit Applicant'); echo br();
 <input type="submit" value="add"/>
 </p>
 
-<?php // echo form_close(); ?>
+<?php echo form_close(); ?>
 
-<hr />-->
+<hr />
 
 <h2> READ </h2>
 <?php if(isset($records)) : foreach ($records as $row) : ?>
 
-<h3><?php echo anchor("site/edit/$row->id", $row->name);  ?></h3>
+<h3><?php echo anchor("site/delete/$row->id", $row->name);  ?></h3>
 <div><?php echo $row->number; ?></div>
 <?php endforeach; ?>
 <?php else : ?>
@@ -39,8 +39,8 @@ echo anchor('site/edit', 'edit Applicant'); echo br();
 <?php endif; ?>
 
 <hr />
-<!--<h2>UPDATE</h2>
-<?php // echo form_open('site/edit'); ?>
+<h2>UPDATE</h2>
+<?php echo form_open('site/edit'); ?>
 <p> 
     <label for="id">ID:</label>
 <input type="text" name="id" id="id"/>
@@ -57,9 +57,9 @@ echo anchor('site/edit', 'edit Applicant'); echo br();
 <input type="submit" value="update"/>
 </p>
 
-<?php // echo form_close(); ?>
+<?php echo form_close(); ?>
 
-<hr />-->
+<hr />
 
 
 <h2>DELETE</h2>
