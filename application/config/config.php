@@ -30,12 +30,26 @@ $config['index_page'] = 'index.php';
 
 /*
 |--------------------------------------------------------------------------
+| Admin Email
+|--------------------------------------------------------------------------
+*/
+$config['admin_email']	= 'renierdbruyn@hotmail.com';
+
+/*
+|--------------------------------------------------------------------------
+| Email sent from the site email address:
+|--------------------------------------------------------------------------
+*/
+$config['bot_email']	= '21024794@dut4life.ac.za';
+
+/*
+|--------------------------------------------------------------------------
 | Password SALT
 |--------------------------------------------------------------------------
 | This can not be changed or deleted or else no way to verify passwords.
 |
 */
-$config['salt']	= '~CF#T@#6F#JK1#LOJ@KIJ';
+$config['salt']	= 'A_\f4~56H%.H0%.:4F:Gd_34Fd\~%.:_\-@-EFR3@rf3fd';
 
 /*
 |--------------------------------------------------------------------------
@@ -135,7 +149,7 @@ $config['subclass_prefix'] = 'MY_';
 | DO NOT CHANGE THIS UNLESS YOU FULLY UNDERSTAND THE REPERCUSSIONS!!
 |
 */
-$config['permitted_uri_chars'] = 'a-z 0-9~%.:_\-';
+$config['permitted_uri_chars'] = 'a-z 0-9~%.:_\-@';
 
 
 /*
@@ -256,15 +270,10 @@ $config['encryption_key'] = '3abc8d7ef0gh435ijkl3m8n7op4o7uy4v8765DG5G3DGD3F87j9
 $config['sess_cookie_name']		= 'ci_session';
 $config['sess_expiration']		= 7200;
 $config['sess_expire_on_close']	= FALSE;
-<<<<<<< HEAD
 $config['sess_encrypt_cookie']	= TRUE;
-$config['sess_use_database']	= FALSE;
-$config['sess_table_name']		= 'ci_sessions';
-=======
 $config['sess_encrypt_cookie']	= FALSE;
 $config['sess_use_database']	= TRUE;
-$config['sess_table_name']		= 'ci_session';
->>>>>>> master
+$config['sess_table_name']		= 'ci_sessions';
 $config['sess_match_ip']		= FALSE;
 $config['sess_match_useragent']	= TRUE;
 $config['sess_time_to_update']	= 300;
