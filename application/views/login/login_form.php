@@ -56,7 +56,7 @@
                         <?php echo form_open('login/validate_credentials'); ?>
                             <fieldset>
                                 <div class="clearfix">
-                                <?php   echo form_input('username', 'Username'); echo br(); ?>
+                                <?php   echo form_input('username', set_value('username', 'Username')); echo br(); ?>
 
                                 </div>
                                 <div class="clearfix">

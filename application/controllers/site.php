@@ -2,9 +2,17 @@
 
 class site extends CI_Controller {
 
+     private $logged_in;
+
     function __construct() {
         parent::__construct();
-        $this->is_logged_in();
+
+        if ($this->session->userdata('logged_in')) {
+            $this->logged_in = true;
+        } else {
+            $this->logged_in = false;
+            redirect('login/index');
+        }
     }
 
     function members_area() {

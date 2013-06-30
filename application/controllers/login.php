@@ -14,20 +14,56 @@ class Login extends CI_Controller {
     }
 
     function validate_credentials() {
-        //  $this->load->model('membership_model');
-        $query = $this->membership_model->validate();
-
-        if ($query) {//if users credentials validated...
-            $data = array(
-                'username' => $this->input->post('username'),
-                'is_logged_in' => true
-            );
-
-            $this->session->set_userdata($data);
-            redirect('site/index');
-        } else {
+        
+        $this->form_validation->set_rules('username', 'Username', 'trim|required|min_lenth[5]|xss_clean');
+        $this->form_validation->set_rules('password', 'Password', 'trim|required|min_lenth[5]|xss_clean');
+        
+        if($this->form_validation->run() == FALSE){
             $this->index();
         }
+        else{
+            //initial checks on data are okay now check if credentials is valid
+            $query = $this->membership_model->login_user();
+        }
+        switch($query) {
+        case 'logged_in' :
+            //authentication complete, sent to loggedin homepage
+             if(isset($_SERVER['HTTP_REFERER']))
+                {
+                    $redirect_to = str_replace(base_url(),'',$_SERVER['HTTP_REFERER']);
+                }
+                else
+                {
+                    $redirect_to = $this->uri->uri_string();
+                }            
+ 
+                redirect('login/index?redirect='.$redirect_to);
+            break;
+        case 'incorrect_password' :
+            $this->index();
+            break;
+//        case 'not_activated' :
+//            $this->index();
+//            break;
+        case 'username_not_found' :
+            $this->index();
+            break;
+        }
+        //  $this->load->model('membership_model');
+//        $query = $this->membership_model->validate();
+//
+//        if ($query) {//if users credentials validated...
+//            $data = array(
+//                'username' => $this->input->post('username'),
+//                'is_logged_in' => true
+//                
+//            );
+//
+//            $this->session->set_userdata($data);
+//            redirect('site/index');
+//        } else {
+//            $this->index();
+//        }
     }
 
     function signup() {
@@ -44,9 +80,9 @@ class Login extends CI_Controller {
         $this->form_validation->set_rules('email_address', 'please input a valid Email Address', 'trim|required|is_unique[membership.email]|valid_email');
         $this->form_validation->set_rules('cell-phone_number', 'cell-phone_number', 'trim|required|min_length[10]|max_length[10]');
 
-        $this->form_validation->set_rules('username', 'username', 'trim|required|callback_username_check|min_length[4]|is_unique[membership.username]');
-        $this->form_validation->set_rules('password1', 'Password', 'trim|trim|required|min_length[5]|matches[password2]');
-        $this->form_validation->set_rules('password2', 'Password', 'trim|required|min_length[5]');
+        $this->form_validation->set_rules('username', 'username', 'trim|required|callback_username_check|min_length[5]|is_unique[membership.username]');
+        $this->form_validation->set_rules('password1', 'Password', 'trim|required|min_length[6]|matches[password2]');
+        $this->form_validation->set_rules('password2', 'Password', 'trim|required|min_length[6]');
 
         if ($this->form_validation->run() == FALSE) {
             $this->signup();
@@ -74,6 +110,11 @@ class Login extends CI_Controller {
             //this should never happen
             echo "ERROR giving email activated page. Please contact " . $this->config->item('admin_email');
         }
+    }
+    
+    function logout(){
+        $this->session->sess_destroy();
+        redirect('welcome/index');
     }
 
 }

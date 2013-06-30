@@ -32,15 +32,62 @@ class membership_model extends CI_Model {
 //        $insert = $this->db->insert('membership', $new_member_insert_data);
 //        return $insert;
 //    }
+//    function validate() {
+//        $this->db->where('username', $this->input->post('username'));
+//        $this->db->where('password', sha1($this->config->item('salt') . $this->input->post('password')));
+//        $query = $this->db->get('membership');
+//
+//        if ($query->num_rows == 1) {
+//            return true;
+//        }
+//    }
 
-    function validate() {
-        $this->db->where('username', $this->input->post('username'));
-        $this->db->where('password', sha1($this->config->item('salt') . $this->input->post('password')));
-        $query = $this->db->get('membership');
+    function login_user() {
+        $username = $this->input->post('username');
+        $password = $this->input->post('password');
 
-        if ($query->num_rows == 1) {
-            return true;
+        $sql = "SELECT id_number, firstname, lastname, username, email, phone, password, activated FROM membership WHERE  username = '{$username}' LIMIT 1";
+        $query = $this->db->query($sql);
+        $row = $query->row();
+
+        if ($query->num_rows() === 1) {
+//            if ($row->activated) {
+                if ($row->password === sha1($this->config->item('salt') . $password)) {
+                    $session_data = array(
+                        'id_number' => $row->id_number,
+                        'firstname' => $row->firstname,
+                        'lastname' => $row->lastname,
+                        'username' => $row->username,
+                        'email' => $row->email,
+                        'phone' => $row->phone,
+                    );
+                    $this->set_session($session_data);
+                    return 'logged_in';
+                } else {
+                    return 'incorrect_password';
+                }
+//            } else {
+//                //user have not activated their account yet
+//                return 'not_activated';
+//            }
+        } else {
+            //username not found in database
+            return 'username_not_found';
         }
+    }
+
+    private function set_session($session_data) {
+
+        $sess_data = array(
+            'id_number' => $session_data['id_number'],
+            'firstname' => $session_data['firstname'],
+            'lastname' => $session_data['lastname'],
+            'username' => $session_data['username'],
+            'email' => $session_data['email'],
+            'phone' => $session_data['phone'],
+            'logged_in' => 1
+        );
+        $this->session->set_userdata($sess_data);
     }
 
     function create_member() {
@@ -73,9 +120,9 @@ class membership_model extends CI_Model {
         $query = $this->db->query($sql);
 
         if ($this->db->affected_rows() === 1) {
-            $this->set_session($firstname, $lastname, $username, $email, $phone);
+            $this->set_sessions($firstname, $lastname, $username, $email, $phone);
             $this->send_validation_email();
-            return true;
+            return $firstname;
         } else {
             $this->load->library('email');
             $this->email->from('techno206@gmail.com', 'Admin of site');
@@ -131,23 +178,23 @@ class membership_model extends CI_Model {
             return FALSE;
         }
     }
-    
-    
-    public function  validate_email($email_address, $email_code){
+
+    public function validate_email($email_address, $email_code) {
         $sql = "SELECT email, reg_time, firstname FROM membership WHERE email = '{$email_address}' LIMIT 1";
         $query = $this->db->query($sql);
-        if(md5((string)$row->reg_time) === 1 && $row->firstname){
+        if (md5((string) $row->reg_time) === 1 && $row->firstname) {
             $query = $this->activate_account($email_address);
-            if($query === true){
+            if ($query === true) {
                 return TRUE;
-            }else{
+            } else {
                 //this should never happen
-                 echo "ERROR when activating your account. Please contact " . $this->config->item('admin_email');
-            return FALSE;
+                echo "ERROR when activating your account. Please contact " . $this->config->item('admin_email');
+                return FALSE;
             }
         }
     }
-                function set_session($firstname, $lastname, $username, $email, $phone) {
+
+                function set_sessions($firstname, $lastname, $username, $email, $phone) {
         $sql = "SELECT id_number, reg_time FROM membership WHERE email = '" . $email . "' LIMIT 1 ";
         $query = $this->db->query($sql);
         $row = $query->row();
@@ -158,12 +205,11 @@ class membership_model extends CI_Model {
             'username' => $username,
             'email' => $email,
             'phone' => $phone,
-            'is_logged_in' => 0
+            'logged_in' => 0
         );
         $this->email_code = md5((string) $row->reg_time);
         $this->session->set_userdata($session_data);
     }
-
 }
 
 ?>
