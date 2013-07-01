@@ -35,25 +35,29 @@ class profile extends CI_Controller {
     }
 
     function add_personal() {
-        $this->form_validation->set_rules('fullAddress', 'Full Address');
-        $this->form_validation->set_rules('city', 'City');
-        $this->form_validation->set_rules('license', ' License');
-        $this->form_validation->set_rules('self_description', 'self_description');
-        $this->form_validation->set_rules('gender', 'gender');
-
-        $this->form_validation->set_rules('relocate', 'relocate');
-        $this->form_validation->set_rules('minimum_salary', 'minimum_salary');
-        $this->form_validation->set_rules('prefered_salary', 'prefered_salary');
-        $this->form_validation->set_rules('contract_type', 'contract_type');
+        $this->form_validation->set_rules('fullAddress', 'Full Address', 'trim|required');
+        $this->form_validation->set_rules('city', 'City', 'trim|required');
+        $this->form_validation->set_rules('licence', ' License', 'required');
+        $this->form_validation->set_rules('self_description', 'self_description', 'required');
+        $this->form_validation->set_rules('gender', 'gender', 'required');
+        $this->form_validation->set_rules('relocate', 'relocate', 'required');
+        $this->form_validation->set_rules('minimum_salary', 'minimum_salary', 'trim|required');
+        $this->form_validation->set_rules('prefered_salary', 'prefered_salary', 'trim|required');
+        $this->form_validation->set_rules('contract_type', 'contract type', 'required');
 
         if ($this->form_validation->run() == FALSE) {
-            $this->index();
+            $data['content'] = 'profile/personal';
+            $data['info'] = 'Hello';
+            $this->load->view('layout/master_layout', $data);
         } else {
-            $query = $this->profile_model->personal();
-
-            if ($query) {
-                echo 'addad details successfully';
-                $this->index();
+            if ($this->profile_model->personal()) {
+                $data['content'] = 'profile/personal';
+                $data['info'] = 'Details captured successfully';
+                $this->load->view('layout/master_layout', $data);
+            } else {
+                $data['content'] = 'profile/personal';
+                $data['info'] = 'An error occured please try again';
+                $this->load->view('layout/master_layout', $data);
             }
         }
     }

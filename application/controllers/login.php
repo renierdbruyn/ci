@@ -14,40 +14,37 @@ class Login extends CI_Controller {
     }
 
     function validate_credentials() {
-        
+
         $this->form_validation->set_rules('username', 'Username', 'trim|required|min_lenth[5]|xss_clean');
         $this->form_validation->set_rules('password', 'Password', 'trim|required|min_lenth[5]|xss_clean');
-        
-        if($this->form_validation->run() == FALSE){
+
+        if ($this->form_validation->run() == FALSE) {
             $this->index();
-        }
-        else{
+        } else {
             //initial checks on data are okay now check if credentials is valid
             $query = $this->membership_model->login_user();
-        }
-        switch($query) {
-        case 'logged_in' :
-            //authentication complete, sent to loggedin homepage
-             if(isset($_SERVER['HTTP_REFERER']))
-                {
-                    $redirect_to = str_replace(base_url(),'',$_SERVER['HTTP_REFERER']);
-                }
-                else
-                {
-                    $redirect_to = $this->uri->uri_string();
-                }            
- 
-                redirect('login/index?redirect='.$redirect_to);
-            break;
-        case 'incorrect_password' :
-            $this->index();
-            break;
+
+            switch ($query) {
+                case 'logged_in' :
+                    //authentication complete, sent to loggedin homepage
+                    if (isset($_SERVER['HTTP_REFERER'])) {
+                        $redirect_to = str_replace(base_url(), '', $_SERVER['HTTP_REFERER']);
+                    } else {
+                        $redirect_to = $this->uri->uri_string();
+                    }
+
+                    redirect('login/index?redirect=' . $redirect_to);
+                    break;
+                case 'incorrect_password' :
+                    $this->index();
+                    break;
 //        case 'not_activated' :
 //            $this->index();
 //            break;
-        case 'username_not_found' :
-            $this->index();
-            break;
+                case 'username_not_found' :
+                    $this->index();
+                    break;
+            }
         }
         //  $this->load->model('membership_model');
 //        $query = $this->membership_model->validate();
@@ -111,8 +108,8 @@ class Login extends CI_Controller {
             echo "ERROR giving email activated page. Please contact " . $this->config->item('admin_email');
         }
     }
-    
-    function logout(){
+
+    function logout() {
         $this->session->sess_destroy();
         redirect('welcome/index');
     }

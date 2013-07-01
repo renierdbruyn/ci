@@ -45,27 +45,42 @@
             </div> <!-- /nav -->
         </div> <!-- /navcon -->
         <br/>
-        <div >
-            <?php
-            if ($this->session->userdata('logged_in') === FALSE) {
-                echo anchor('login/index', "Login");
-            } else { // its true so..
-                echo "";
-            }
-            ?> <?php
-            if ($this->session->userdata('logged_in') === FALSE) {
-                echo "";
-            } else { // its true so..
-                echo anchor('login/logout', "Logout");
-            }//echo isset($this->session->userdata('not_set') ) ? anchor('login/logout', "Logout") : NULL; 
-            ?>
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span2">
+                    <!--Sidebar content-->
+                    <button class=" span10 btn btn-large">Personal</button>
+                    <button class=" span10 btn btn-large">Menu</button>
+                    <button class=" span10 btn btn-large">Menu</button>
+                    <button class=" span10 btn btn-large">Menu</button>
+                    <button class=" span10 btn btn-large">Menu</button>
+                    <button class=" span10 btn btn-large">Menu</button>
+                </div>
+                <div class="span10">
+
+                    <div >
+                        <?php
+                        if ($this->session->userdata('logged_in') === FALSE) {
+                            echo anchor('login/index', "Login");
+                        } else { // its true so..
+                            echo "";
+                        }
+                        ?> <?php
+                        if ($this->session->userdata('logged_in') === FALSE) {
+                            echo "";
+                        } else { // its true so..
+                            echo anchor('login/logout', "Logout");
+                        }//echo isset($this->session->userdata('not_set') ) ? anchor('login/logout', "Logout") : NULL; 
+                        ?>
+                    </div>
+
+                    <br/>
+
+                    <?php $this->load->view($content); ?>
+                    </br>
+                    <?php echo isset($info) ? $info : NULL; ?>
+                </div>
+            </div>
         </div>
-
-        <br/>
-
-<?php $this->load->view($content);
-//echo isset($info ) ? $info : NULL; 
-?>
-
     </body>
 </html>
