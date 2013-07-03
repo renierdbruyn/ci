@@ -1,8 +1,23 @@
+<?php
+foreach ($personal as $row) {
+    $address = $row->address;
+
+    $city = $row->city;
+    $licence = $row->licence;
+    $self_description = $row->self_description;
+    $id_number = $row->id_number;
+    $gender = $row->gender;
+    $relocate = $row->relocate;
+    $minimum_salary = $row->minimum_salary;
+    $prefered_salary = $row->prefered_salary;
+    $contract_type = $row->contract_type;
+}
+?>
 
 <html>
     <head>
         <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/bootstrap.css" />
-        <title><?php echo $title; ?></title>
+        <title><?php //echo $title;  ?></title>
         <style>
             span
             {
@@ -16,7 +31,7 @@
                 width: 300px;
             }
         </style>
-        <script src="<?php echo base_url(); ?>assets/js/jquery-1.10.1.min.js"></script>
+
         <script src="<?php echo base_url(); ?>assets/js/address.js"></script>
         <script>
             function get()
@@ -54,19 +69,27 @@
             <div class="input-prepend">
 
                 <label class="add-on ">Address</label>
-                <input class="span7" id="fullAddress" name="fullAddress" readonly type="text" placeholder="55 milarina, Newlands west, 4037" value="<?php set_value('fullAddress', 'Full Address'); ?>" style="cursor:pointer; width: 300px">
+                <input class="span7" id="fullAddress" name="fullAddress" readonly type="text" placeholder="55 milarina, Newlands west, 4037" style="cursor:pointer; width:300px;" value="<?php echo  isset($address) ? $address : set_value('fullAddress'); ?>">
             </div>
 
             <br>
             <div id="addressForm" class="input-prepend">
                 <label class="add-on">Street</label>
-                <input class="span7" name="street" id="street" type="text" placeholder="55 Milarina dr">
+                <?php
+                if (isset($address) && !empty($address)) {
+                    $add = explode(",", $address);
+                    $street = $add[0];
+                    $suburb = $add[1];
+                    $postal = $add[2];
+                }
+                ?>
+                <input class="span7" name="street" id="street" type="text" placeholder="55 Milarina dr" value="<?php echo isset($street) ? $street : set_value('street'); ?>">
                 <br>
                 <label class="add-on">Suburb</label>
-                <input class="span7" id="suburb" type="text" placeholder="Newlands west">
+                <input class="span7" id="suburb" name="suburb" type="text" placeholder="Newlands west"value="<?php echo isset($suburb) ? $suburb : set_value('suburb'); ?>">
                 <br>
                 <label class="add-on">Postal code</label>
-                <input class="span7" id="code" type="text" placeholder="4037">
+                <input class="span7" id="code" name="code" type="text" placeholder="4037" value="<?php echo isset($postal) ? $postal : set_value('code'); ?>">
                 <br>
                 <?php
                 $js = 'id="addressButton" onclick="get()"';
@@ -75,109 +98,98 @@
             </div>
             <br>
             <div class="clearfix" style="color:red;">
-                <?php echo form_error('city'); ?>
+<?php echo form_error('city'); ?>
             </div>
             <div class="input-prepend">
 
                 <label class="add-on">City</label>
-                <input class="span7" id="city" name="city" type="text" placeholder="Durban" >
+                <input class="span7" id="city" name="city" type="text" placeholder="Durban" value="<?php echo isset($city) ? $city : set_value('city'); ?>" >
 
 
             </div>
             <br>
             <div class="clearfix" style="color:red;">
-                <?php echo form_error('licence'); ?>
+<?php echo form_error('licence'); ?>
             </div>
             <div class="input-prepend">
 
                 <label class="add-on">License</label>
-                <?php
-                $optlicense = array(
-                    'A1' => 'A1',
-                    'A' => 'A',
-                    'B' => 'B',
-                    'EB' => 'EB',
-                    'C1' => 'C1',
-                    'C' => 'C',
-                    'EC1' => 'EC1',
-                    'EC' => 'EC',
-                );
-                $licenseProp = array(
-                    'class' => 'span7',
-                    'name' => 'license',
-                    'style' => 'width:300px'
-                );
-                // echo form_dropdown($licenseProp, $optlicense, 'A1');            
-                ?>
-                <select name="licence" class="span7" style=" width: 300px">
-                    <option value ="A1"  <?php echo set_select('select', 'A1', true); ?>>A1</option>
-                    <option value ="A"   <?php echo set_select('select', 'A'); ?>>A</option>
-                    <option value ="B"   <?php echo set_select('select', 'B'); ?>>B</option>
-                    <option value ="EB"  <?php echo set_select('select', 'EB'); ?>>EB</option>
-                    <option value ="C1"  <?php echo set_select('select', 'C1'); ?>>C1</option>
-                    <option value ="C"   <?php echo set_select('select', 'C'); ?>>C</option>
-                    <option value ="EC1" <?php echo set_select('select', 'EC1'); ?>>EC1</option>
-                    <option value ="EC"  <?php echo set_select('select', 'EC'); ?>>EC</option>
+
+                <select name="licence" class="span7" style=" width: 300px" >
+                    <?php
+                    if (isset($licence) && !empty($licence)) {
+                        echo "<option value='$licence'" . set_select('licence', $licence) . " > " . $licence . "</option>";
+                    }
+                    else
+                        "<option value='null'" . set_select('licence', 'null') . ">- Select One -</option>";
+                    ?>
+                    <option value="null" <?php echo set_select('licence', 'null'); ?> >- Select One -</option>
+                    <option value ="none"  <?php echo set_select('licence', 'none'); ?>>Don't have one</option>
+                    <option value ="A1"  <?php echo set_select('licence', 'A1'); ?>>A1</option>
+                    <option value ="A"   <?php echo set_select('licence', 'A'); ?>>A</option>
+                    <option value ="B"   <?php echo set_select('licence', 'B'); ?>>B</option>
+                    <option value ="EB"  <?php echo set_select('licence', 'EB'); ?>>EB</option>
+                    <option value ="C1"  <?php echo set_select('licence', 'C1'); ?>>C1</option>
+                    <option value ="C"   <?php echo set_select('licence', 'C'); ?>>C</option>
+                    <option value ="EC1" <?php echo set_select('licence', 'EC1'); ?>>EC1</option>
+                    <option value ="EC"  <?php echo set_select('licence', 'EC'); ?>>EC</option>
                 </select>
 
             </div>
             <br>
             <div class="clearfix" style="color:red;">
-                <?php echo form_error('gender'); ?>
+<?php echo form_error('gender'); ?>
             </div>
             <div class="input-prepend">
 
                 <label class="add-on">Gender</label>
-                <?php
-                $optgender = array(
-                    'male' => 'Male',
-                    'female' => 'Female',
-                );
-                $genderProp = array(
-                    'class' => 'span7',
-                    'name' => 'gender'
-                );
 
-                //echo form_dropdown($genderProp, $optgender, 'male');
-                ?>
                 <select name="gender" class="span7">
-                    <option value ="Male" <?php echo set_select('select', 'male', true); ?>>Male</option>
-                    <option value ="Female"<?php echo set_select('select', 'female'); ?>>Female</option>
+                    <?php
+                    if (isset($gender) && !empty($gender)) {
+                        echo "<option value='$gender'" . set_select('gender', $gender) . " > " . $gender . "</option>";
+                    }
+                    else
+                        "<option value='null'" . set_select('gender', 'null') . ">- Select One -</option>";
+                    ?>
+                    <option value="null" <?php echo set_select('gender', 'null'); ?> >- Select One -</option>
+                    <option value ="male" <?php echo set_select('gender', 'male'); ?>>Male</option>
+                    <option value ="female"<?php echo set_select('gender', 'female'); ?>>Female</option>
                 </select>
 
             </div>
             <br>
             <div class="clearfix" style="color:red;">
-                <?php echo form_error('minimum_salary'); ?>
+<?php echo form_error('minimum_salary'); ?>
             </div>
             <div class="input-prepend">
 
                 <label class="add-on">Minimum salary per month </label>
-                <input class="span7" name="minimum_salary" type="text" placeholder="5 000 ">
+                <input class="span7" name="minimum_salary" type="text" placeholder="5 000 " value="<?php echo isset($minimum_salary) ? $minimum_salary : set_value('minimum_salary'); ?>">
 
             </div>
             <br>
             <div class="clearfix" style="color:red;">
-                <?php echo form_error('prefered_salary'); ?>
+<?php echo form_error('prefered_salary'); ?>
             </div>
             <div class="input-prepend">
 
                 <label class="add-on">Prefered salary per month</label>
-                <input class="span7" name="prefered_salary"  type="text" placeholder="15 000 ">
+                <input class="span7" name="prefered_salary"  type="text" placeholder="15 000 " value="<?php echo isset($prefered_salary) ? $prefered_salary : set_value('prefered_salary'); ?>">
             </div>
 
             <br>
             <div class="clearfix" style="color:red;">
-                <?php echo form_error('relocate'); ?>
+<?php echo form_error('relocate'); ?>
             </div>
             <div class="input-prepend">
 
                 <label class="add-on">relocate</label> 
                 <?php
-                $relocate = array(
-                    'name' => 'relocate',
-                    'value' => 'Yes'
-                );
+//                    $relocate = array(
+//                        'name' => 'relocate',
+//                        'value' => 'Yes'
+//                    );
 
                 $optrelocate = array(
                     'yes' => 'Yes',
@@ -185,45 +197,62 @@
                 );
                 // echo form_dropdown($relocate,$optrelocate, 'no');
                 ?>
-                <select name="relocate" class="span7">
-                    <option value ="Yes">Yes</option>
-                    <option value ="No" selected>No</option>
+                <select name="relocate" class="span7" >
+                    <?php
+                    if (isset($relocate) && !empty($relocate)) {
+                        echo "<option value='$relocate'" . set_select('relocate', $relocate) . " > " . $relocate . "</option>";
+                    }
+                    else
+                        "<option value='null'" . set_select('relocate', 'null') . ">- Select One -</option>";
+                    ?>
+
+                    <option value="null" <?php echo set_select('relocate', 'null'); ?> >- Select One -</option>
+                    <option value ="yes" <?php echo set_select('relocate', 'yes'); ?>>Yes</option>
+                    <option value ="no" <?php echo set_select('relocate', 'no'); ?>>No</option>
                 </select>
             </div>
 
             <br>
             <div class="clearfix" style="color:red;">
-                <?php echo form_error('contract_type'); ?>
+<?php echo form_error('contract_type'); ?>
             </div>
             <div class="input-prepend">
 
                 <label class="add-on">Prefered Contract Type</label> 
 
-                <select name="contract_type" class="span7">
-                    <option value ="permanent">Permanent</option>
-                    <option value ="temporary" >Temporary</option>
-                    <option value ="contract" >Contract</option>
+                <select name="contract_type" class="span7" >
+                    <?php
+                    if (isset($contract_type) && !empty($contract_type)) {
+                        echo "<option value='$contract_type'" . set_select('contract_type', $contract_type) . " > " . $contract_type . "</option>";
+                    }
+                    else
+                        "<option value='null'" . set_select('contract_type', 'null') . ">- Select One -</option>";
+                    ?>
+                    <option value="null" <?php echo set_select('contract_type', 'null'); ?> >- Select One -</option>
+                    <option value ="permanent" <?php echo set_select('contract_type', 'permanent'); ?>>Permanent</option>
+                    <option value ="temporary" <?php echo set_select('contract_type', 'temporary'); ?> >Temporary</option>
+                    <option value ="contract" <?php echo set_select('contract_type', 'contract'); ?> >Contract</option>
                 </select>
             </div>
 
             <br>
             <div class="clearfix" style="color:red;">
-                <?php echo form_error('self_description'); ?>
+<?php echo form_error('self_description'); ?>
             </div>
             <div class="input-prepend">
                 <label class="add-on">Describe yourself briefly</label> 
 
-                <textarea rows="5"  class="span7" name="self_description"></textarea>
+                <textarea rows="5"  class="span7" name="self_description"><?php echo isset($self_description) ? $self_description : set_value('self_description'); ?></textarea>
             </div>
-
+               <?php echo form_hidden("id_number",$this->session->userdata('id_number')); ?>
             <div>
                 <button class="btn btn-success"  type="submit">Save Data</button>
                 <?php
-                //echo form_button(array('class'=>'span2 btn btn-success', 'name'=>'personal', 'content'=>'Save Data'));
+//echo form_button(array('class'=>'span2 btn btn-success', 'name'=>'personal', 'content'=>'Save Data'));
                 echo form_close();
                 ?>
             </div>
-            <?php //echo validation_errors('<p class ="error">'); ?>
+<?php //echo validation_errors('<p class ="error">');     ?>
         </div>
     </div>
 </div>

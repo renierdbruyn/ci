@@ -21,18 +21,23 @@
               <div class="span10">
                 <!--Body content-->
                 <?php
-                    $this->load->helper('form');
-                    echo form_open();
+                   // $this->load->helper('form');
+                    echo form_open('profile/add_school');
                 ?>
+                 <div class="clearfix" style="color:red;">
+
+                <?php echo form_error('school_name'); ?>
+
+            </div>
                 <div class="input-prepend">
                     <span class="add-on">School name</span>
                     <?php
                         $schoolnameProp=array(
                             'class'=>'span7',
-                            'name'=>'school name',
+                            'name'=>'school_name',
                             'placeholder'=>'Qhakaza High School'
                         );
-                        echo form_input($schoolnameProp);
+                        echo form_input($schoolnameProp, set_value('School_name'));
                     ?>
                 </div>
                 <br>
@@ -41,14 +46,19 @@
                     <?php
                         $referenceNameProp=array(
                             'class'=>'span7',
-                            'name'=>'school name',
+                            'name'=>'reference_name',
                             'placeholder'=>'Patric Johnson'
                         );
                         
-                        echo form_input($referenceNameProp);
+                        echo form_input($referenceNameProp, set_value('reference_name'));
                     ?>
                 </div>
                 <br>
+                <div class="clearfix" style="color:red;">
+
+                <?php echo form_error('reference_phone'); ?>
+
+            </div>
                 <div class="input-prepend">
                     <span class="add-on">Reference phone</span>
                     <?php
@@ -58,17 +68,22 @@
                             'placeholder'=>'0743109227'
                         );
                         
-                        echo form_input($referencePhoneProp);
+                        echo form_input($referencePhoneProp, set_value('reference_phone'));
                     ?>
                 </div>
                 <br>
+                <div class="clearfix" style="color:red;">
+
+                <?php echo form_error('grade'); ?>
+
+            </div>
                 <div class="input-prepend">
                     <span class="add-on">Highest level obtained</span>
                     <select name="grade" id="grade" class="span7" onchange="decide()">
-                    	<option value="">Select a grade</option>
-                    	<option value="Grade 10">Grade 10</option>
-                    	<option value="Grade 11">Grade 11</option>
-                    	<option value="Grade 12">Grade 12</option>
+                    	<option value="null" <?php echo set_select('grade', 'null', true);?>>Select a grade</option>
+                    	<option value="Grade 10" <?php echo set_select('grade', 'Grade 10', true);?>>Grade 10</option>
+                    	<option value="Grade 11" <?php echo set_select('grade', 'Grade 11', true);?>>Grade 11</option>
+                    	<option value="Grade 12" <?php echo set_select('grade', 'Grade 12', true);?>>Grade 12</option>
                     </select>
                 </div>
                 <br>
@@ -76,28 +91,26 @@
                     <span class="add-on">Matric type</span>
                     <?php
                         $matric= array(
-                            ''=>'Select a matric type',
+                            'null'=>'Select a matric type',
                             'NC'=>'NC',
                             'NSC'=>'NSC',
                             'IEB'=>'IEB'
                         );
                         
-                        $matricProp=array(
-                            'class'=>'span7',
-                            'name'=>'matric',
-                            'id'=>'matric'
-                        );
+                        $matricProp=" 'class'='span7',                            
+                            'id'='matric'";
                         
-                        echo form_dropdown($matricProp, $matric, 'Select a matric type')."<br>";
+                        echo form_dropdown('matric', $matric,$this->input->post('matric'), $matricProp)."<br>";
                     ?>
                 </div>
                 <br>
                 <div>
-                    <input class="span2 btn-success" id="schoolButton" type="submit" value="Save Data">
+                    <input class="btn btn-success" id="schoolButton" type="submit" value="Save Data">
                 </div>
                 <?php
                     echo form_close();
                 ?>
+                <?php //echo validation_errors('<p class ="error">'); ?>
               </div>
             </div>
         </div>

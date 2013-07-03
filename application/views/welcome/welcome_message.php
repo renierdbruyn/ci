@@ -1,4 +1,4 @@
-	<style type="text/css">
+<!--	<style type="text/css">
 
 	::selection{ background-color: #E13300; color: white; }
 	::moz-selection{ background-color: #E13300; color: white; }
@@ -56,10 +56,9 @@
 		border: 1px solid #D0D0D0;
 		-webkit-box-shadow: 0 0 8px #D0D0D0;
 	}
-	</style>
+	</style>-->
 
 
-<div id="container">
 	<h1>Welcome to You Choose Recruit</h1>
 
 	
