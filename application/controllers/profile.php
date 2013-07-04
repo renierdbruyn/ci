@@ -36,27 +36,39 @@ class profile extends CI_Controller {
     }
 
     function school() {
+        $data['school'] = $query = $this->db->get_where('school', array('id_number' => $this->session->userdata('id_number')))->result();
         $data['content'] = 'profile/school';
         $this->load->view('layout/master_layout', $data);
     }
 
     function add_school() {
+        $id = $this->input->post('id_number');
+        $sql = "SELECT id_number FROM school WHERE id_number ='{$id}' LIMIT 1 ";
+        $result=  $this->db->query($sql);
         $this->form_validation->set_rules('school_name', 'School name', 'trim|required');
         $this->form_validation->set_rules('reference_name', 'Reference Name', 'trim');
-        $this->form_validation->set_rules('reference_phone', 'Reference phone', 'trim|is_numeric');
+        $this->form_validation->set_rules('reference_phone', 'Reference phone', 'trim|is_numeric|exact_length[10]');
         $this->form_validation->set_rules('grade', 'Grade', 'required|callback_select_validate');
 
         if ($this->form_validation->run() == FALSE) {
+            $data['school'] = $query = $this->db->get_where('school', array('id_number' => $this->session->userdata('id_number')))->result();
             $data['content'] = 'profile/school';
+            //$data['info'] = 'Hello';
             $this->load->view('layout/master_layout', $data);
         } else {
-            if ($this->profile_model->school()) {
+            if ($result->num_rows === 1) {
+
+                $this->profile_model->edit_school();
+                $data['school'] = $query = $this->db->get_where('school', array('id_number' => $this->session->userdata('id_number')))->result();$data['info'] = "<script> alert('School Details updated'); </script>";
+                
                 $data['content'] = 'profile/school';
-                $data['info'] = '<script> alert(details saved!) </script>';
                 $this->load->view('layout/master_layout', $data);
             } else {
+
+                $this->profile_model->school();
+                $data['school'] = $query = $this->db->get_where('school', array('id_number' => $this->session->userdata('id_number')))->result();
+                $data['info'] = "<script> alert('School Details saved'); </script>";
                 $data['content'] = 'profile/school';
-                //   $data['info'] = 'An error occured please try again';
                 $this->load->view('layout/master_layout', $data);
             }
         }
@@ -86,12 +98,14 @@ class profile extends CI_Controller {
 
                 $this->profile_model->edit_skill();
                 $data['skill'] = $query = $this->db->get_where('skills', array('id_number' => $this->session->userdata('id_number')))->result();
+                $data['info'] = "<script> alert('Skills Details updated'); </script>";
                 $data['content'] = 'profile/skills';
                 $this->load->view('layout/master_layout', $data);
             } else {
 
                 $this->profile_model->skill();
                 $data['skill'] = $query = $this->db->get_where('skills', array('id_number' => $this->session->userdata('id_number')))->result();
+                $data['info'] = "<script> alert('Skills Details saved'); </script>";
                 $data['content'] = 'profile/skills';
                 $this->load->view('layout/master_layout', $data);
             }
@@ -129,23 +143,24 @@ class profile extends CI_Controller {
         if ($this->form_validation->run() == FALSE) {
             $data['personal'] = $query = $this->db->get_where('personal', array('id_number' => $this->session->userdata('id_number')))->result();
             $data['content'] = 'profile/personal';
-            //$data['info'] = 'Hello';
+            //$data['info'] = '';
             $this->load->view('layout/master_layout', $data);
         } else {
             if ($result->num_rows === 1) {
 
                 $this->profile_model->edit_personal();
                 $data['personal'] = $query = $this->db->get_where('personal', array('id_number' => $this->session->userdata('id_number')))->result();
+                $data['info'] = "<script> alert('Personal Details updated'); </script>";
                 $data['content'] = 'profile/personal';
                 $this->load->view('layout/master_layout', $data);
             } else {
 
                 $this->profile_model->personal();
                 $data['personal'] = $query = $this->db->get_where('personal', array('id_number' => $this->session->userdata('id_number')))->result();
+                $data['info'] = "<script> alert('Personal Details saved'); </script>";
                 $data['content'] = 'profile/personal';
                 $this->load->view('layout/master_layout', $data);
             }
-
 //            if () {
 //                $data['content'] = 'profile/personal';
 //                $data['info'] = 'Details captured successfully';

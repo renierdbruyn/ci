@@ -43,24 +43,24 @@
 
                         <div class="clearfix">
                             <?php echo form_error('id_number'); ?>
-                            <?php echo form_input('id_number', set_value('id_number', 'Id_number ')); ?>
+                            <?php echo form_input('id_number', set_value('id_number')); ?>
                         </div>
                         <div class="clearfix">
                             <?php echo form_error('first_name'); ?>
-                            <?php echo form_input('first_name', set_value('first_name', 'First name ')); ?>
+                            <?php echo form_input('first_name', set_value('first_name')); ?>
                         </div>
                         <div class="clearfix">
                             <?php echo form_error('last_name'); ?>
-                            <?php echo form_input('last_name', set_value('last_name', 'Last name ')); ?>
+                            <?php echo form_input('last_name', set_value('last_name')); ?>
                         </div>
                         <div class="clearfix">
                             <?php echo form_error('email_address'); ?>
-                            <?php echo form_input('email_address', set_value('email_address', 'Email Address ')); ?>
+                            <?php echo form_input('email_address', set_value('email_address')); ?>
                         </div>
 
                         <div class="clearfix">
                             <?php echo form_error('cell-phone_number'); ?>
-                            <?php echo form_input('cell-phone_number', set_value('cell-phone_number', 'Cell-phone_number ')); ?>
+                            <?php echo form_input('cell-phone_number', set_value('cell-phone_number')); ?>
                         </div>
                     </fieldset>
                     <fieldset>
@@ -68,15 +68,15 @@
 
                         <div class="clearfix">
                             <?php echo form_error('username'); ?>
-                            <?php echo form_input('username', set_value('username', 'Username ')); ?>
+                            <?php echo form_input('username', set_value('username')); ?>
                         </div>
                          <div class="clearfix">
                              <?php echo form_error('password1'); ?>
-                            <?php echo form_input('password1', set_value('password1', 'Password')); ?>
+                            <?php echo form_input('password1', set_value('password1')); ?>
                         </div>
                         <div class="clearfix">
                             <?php echo form_error('password2'); ?>
-                            <?php echo form_input('password2', set_value('password2', 'Password Confirm ')); ?>
+                            <?php echo form_input('password2', set_value('password2')); ?>
                         </div>
 
                         <button class="btn btn-primary" type="submit">SignUp</button>

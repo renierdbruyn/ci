@@ -1,6 +1,15 @@
 $(document).ready(function()
  {
-	$("#matricType").hide();
+	var grade=document.getElementById("grade").value;
+	
+	if(grade==="Grade 12")
+	{
+		$("#matricType").show();
+	}
+        else
+        {
+            $("#matricType").hide();
+        }
 });
 
 function decide()

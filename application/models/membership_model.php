@@ -205,7 +205,7 @@ class membership_model extends CI_Model {
             'username' => $username,
             'email' => $email,
             'phone' => $phone,
-            'logged_in' => 0
+            'logged_in' => FALSE
         );
         $this->email_code = md5((string) $row->reg_time);
         $this->session->set_userdata($session_data);
