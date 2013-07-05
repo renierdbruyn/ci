@@ -14,6 +14,7 @@ class profile_model extends CI_Model {
         $prefered_salary = $this->input->post('prefered_salary');
         $contract_type = $this->input->post('contract_type');
 
+<<<<<<< HEAD
         $sql = "INSERT INTO personal(
             address,
             city, 
@@ -25,6 +26,9 @@ class profile_model extends CI_Model {
             minimum_salary, 
             prefered_salary, 
             contract_type)
+=======
+        $sql = "INSERT INTO personal(address, city, licence, self_description, id_number, gender, relocate, mimimum_salary, prefered_salary, contract type)
+>>>>>>> origin/Nelly
                 VALUES('{$address}',
                        '{$city}',
                        '{$licence}',
@@ -35,6 +39,7 @@ class profile_model extends CI_Model {
                        '{$minimum_salary}',
                        '{$prefered_salary}',
                        '{$contract_type}')";
+<<<<<<< HEAD
 
         $query = $this->db->query($sql);
 
@@ -87,13 +92,22 @@ class profile_model extends CI_Model {
                     '{$matric}',
                     '{$grade}')";
 
+=======
+                    
+>>>>>>> origin/Nelly
         $query = $this->db->query($sql);
 
         if ($this->db->affected_rows() === 1) {
 
+<<<<<<< HEAD
             return true;
         } else {
             return FALSE;
+=======
+            return 'success';
+        } else {
+            return 'failed';
+>>>>>>> origin/Nelly
         }
     }
     

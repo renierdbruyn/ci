@@ -35,6 +35,7 @@ class profile extends CI_Controller {
         $this->load->view('layout/master_layout', $data);
     }
 
+<<<<<<< HEAD
     function school() {
         $data['school'] = $query = $this->db->get_where('school', array('id_number' => $this->session->userdata('id_number')))->result();
         $data['content'] = 'profile/school';
@@ -87,6 +88,19 @@ class profile extends CI_Controller {
         $this->form_validation->set_rules('skill_name', 'skill name', 'required|callback_select_validate');
         $this->form_validation->set_rules('skill_level', 'skilllevel', 'required|callback_select_validate');
         $this->form_validation->set_rules('experience', 'experience', 'required|callback_select_validate');
+=======
+    function add_personal() {
+        $this->form_validation->set_rules('fullAddress', 'Full Address', 'trim');
+        $this->form_validation->set_rules('city', 'City', 'trim|required');
+        $this->form_validation->set_rules('licence', ' License', 'trim|required');
+        $this->form_validation->set_rules('self_description', 'self_description', 'trim|required');
+        $this->form_validation->set_rules('gender', 'gender', 'trim|required');
+
+        $this->form_validation->set_rules('relocate', 'relocate', 'trim|required');
+        $this->form_validation->set_rules('minimum_salary', 'minimum_salary', 'trim|required');
+        $this->form_validation->set_rules('prefered_salary', 'prefered_salary', 'trim|required');
+        $this->form_validation->set_rules('contract_type', 'contract type', 'trim|required');
+>>>>>>> origin/Nelly
 
         if ($this->form_validation->run() == FALSE) {
             $data['skill'] = $query = $this->db->get_where('skills', array('id_number' => $this->session->userdata('id_number')))->result();
@@ -94,6 +108,7 @@ class profile extends CI_Controller {
             //$data['info'] = 'Hello';
             $this->load->view('layout/master_layout', $data);
         } else {
+<<<<<<< HEAD
             if ($result->num_rows === 1) {
 
                 $this->profile_model->edit_skill();
@@ -159,6 +174,15 @@ class profile extends CI_Controller {
                 $data['personal'] = $query = $this->db->get_where('personal', array('id_number' => $this->session->userdata('id_number')))->result();
                 $data['info'] = "<script> alert('Personal Details saved'); </script>";
                 $data['content'] = 'profile/personal';
+=======
+            if ($query = $this->profile_model->personal()) {
+                $data['content'] = 'profile/personal';
+                $data['info'] = 'Details captured successfully';
+                $this->load->view('layout/master_layout', $data);
+            } else {
+                $data['content'] = 'profile/personal';
+                $data['info'] = 'An error occured please try again';
+>>>>>>> origin/Nelly
                 $this->load->view('layout/master_layout', $data);
             }
 //            if () {

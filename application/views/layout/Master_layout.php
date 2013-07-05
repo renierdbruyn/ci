@@ -129,7 +129,13 @@
                         ?>
                     </div>
 
+<<<<<<< HEAD
                     <br/>
+=======
+<?php $this->load->view($content);
+echo isset($info ) ? $info : NULL; 
+?>
+>>>>>>> origin/Nelly
 
                     <?php $this->load->view($content); ?>
                     </br>
