@@ -11,43 +11,43 @@
     
 </div>-->
 
-        <style type="text/css">
-            /* Override some defaults */
-            
-            .container {
-                width: 300px;
-            }
+<style type="text/css">
+    /* Override some defaults */
 
-            /* The white background content wrapper */
-            .container > .content {
-                background-color: #f0f0f0;
-                padding: 20px;
-                margin: 50px -20px; 
-                -webkit-border-radius: 10px 10px 10px 10px;
-                -moz-border-radius: 10px 10px 10px 10px;
-                border-radius: 10px 10px 10px 10px;
-                -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.15);
-                -moz-box-shadow: 0 1px 2px rgba(0,0,0,.15);
-                box-shadow: 0 1px 2px rgba(0,0,0,.15);
-            }
+    .container {
+        width: 300px;
+    }
 
-            .login-form {
-                margin-left: 65px;
-            }
+    /* The white background content wrapper */
+    .container > .content {
+        background-color: #f0f0f0;
+        padding: 20px;
+        margin: 50px -20px; 
+        -webkit-border-radius: 10px 10px 10px 10px;
+        -moz-border-radius: 10px 10px 10px 10px;
+        border-radius: 10px 10px 10px 10px;
+        -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+        -moz-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+        box-shadow: 0 1px 2px rgba(0,0,0,.15);
+    }
 
-            legend {
-                margin-right: -50px;
-                font-weight: bold;
-                color: #404040;
-            }
+    .login-form {
+        margin-left: 65px;
+    }
 
+    legend {
+        margin-right: -50px;
+        font-weight: bold;
+        color: #404040;
+    }
 
+<<<<<<< HEAD
         </style>
         <div class="container">
             <div class="content">
                 <div class="row">
                     <div class="login-form">
-                        <h2>Login</h2>
+                        <h2>login</h2>
 <!--                        <div class="alert">
                             <a href="#" class="close" data-dismiss="alert">&times;</a>
                             <strong>Warning!</strong> Best check yo self, you're not looking too good.
@@ -56,15 +56,59 @@
                         <?php echo form_open('login/validate_credentials'); ?>
                             <fieldset>
                                 <div class="clearfix">
-                                <?php   echo form_input('username', 'Username'); echo br(); ?>
+                                <?php   echo form_input('username', set_value('username')); echo br(); ?>
 
                                 </div>
                                 <div class="clearfix">
-                                    <?php   echo form_password('password', 'Password');echo br(); ?>
+                                    <?php   echo form_password('password');echo br(); ?>
                                 </div>
                                 <button class="btn btn-primary" type="submit">Sign in</button> <?php echo anchor('login/signup', 'Create Account'); ?>
+                                 
+                                <div class="clearfix">
+                                    <?php echo anchor('login/reset_password', 'Forgot Password?'); ?>
+                                </div>
                             </fieldset>
+=======
+
+</style>
+<div class="container">
+    <div class="content">
+        <div class="row">
+            <div class="login-form">
+                <h2>Login</h2>
+                <!--                        <div class="alert">
+                                            <a href="#" class="close" data-dismiss="alert">&times;</a>
+                                            <strong>Warning!</strong> Best check yo self, you're not looking too good.
+                                        </div>-->
+
+                <?php echo form_open('login/validate_credentials'); ?>
+                <fieldset>
+                    <div class="clearfix">
+                        <?php echo form_input('username', set_value('username', 'Username'));
+                        echo br();
+                        ?>
+
                     </div>
-                </div>
+                    <div class="clearfix">
+                        <?php echo form_password('password', 'Password');
+                        echo br();
+                        ?>
+                    </div>
+                    <div class="clearfix">
+                        <?php
+                        echo isset($image) ? $image : null; echo br();
+//$this->view('captcha_view.php'); 
+                        ?>
+>>>>>>> origin/Nelly
+                    </div>
+                    <div class="clearfix">
+                        <input type="text" name="word" />
+                        <?php br(); ?>
+                    </div>
+
+                    <button class="btn btn-primary" type="submit">Sign in</button> <?php echo anchor('login/signup', 'Create Account'); ?>
+                </fieldset>
             </div>
-        </div> <!-- /container -->
+        </div>
+    </div>
+</div> <!-- /container -->

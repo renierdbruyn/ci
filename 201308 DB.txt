@@ -1,0 +1,320 @@
+-- phpMyAdmin SQL Dump
+-- version 3.5.1
+-- http://www.phpmyadmin.net
+--
+-- Host: localhost
+-- Generation Time: Jul 02, 2013 at 11:19 AM
+-- Server version: 5.5.24-log
+-- PHP Version: 5.4.3
+
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+--
+-- Database: `201308`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `applicant`
+--
+
+CREATE TABLE IF NOT EXISTS `applicant` (
+  `id` varchar(13) CHARACTER SET utf8 NOT NULL,
+  `name` varchar(50) CHARACTER SET utf8 NOT NULL,
+  `number` varchar(10) CHARACTER SET utf8 NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `applicant`
+--
+
+INSERT INTO `applicant` (`id`, `name`, `number`) VALUES
+('1', 'Renier de Bruyn', '082'),
+('123', '$this->name', '1234567890'),
+('123456', 'renier', '828245092'),
+('21024794', '0', '828245092'),
+('2147483647', 'BOB ', '1234567890'),
+('3', 'hello', '023589'),
+('4', 'Devaksha ', '0987654321'),
+('432', 'tre', '432'),
+('910920', '0', '123456789'),
+('9876543210987', 'TEST', '1234567890');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `appplication`
+--
+
+CREATE TABLE IF NOT EXISTS `appplication` (
+  `advert_id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_number` varchar(13) NOT NULL,
+  PRIMARY KEY (`advert_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ci_sessions`
+--
+
+CREATE TABLE IF NOT EXISTS `ci_sessions` (
+  `session_id` varchar(40) NOT NULL DEFAULT '0',
+  `ip_address` varchar(16) NOT NULL DEFAULT '0',
+  `user_agent` varchar(120) NOT NULL,
+  `last_activity` int(10) unsigned NOT NULL DEFAULT '0',
+  `user_data` text NOT NULL,
+  PRIMARY KEY (`session_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `ci_sessions`
+--
+
+INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
+('2cd98f26c3d1629c835abadc1bcc538b', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.116 Safari/537.36', 1372763621, 'a:8:{s:9:"user_data";s:0:"";s:9:"id_number";s:13:"9109205021082";s:9:"firstname";s:3:"Bob";s:8:"lastname";s:9:"Last name";s:8:"username";s:5:"12345";s:5:"email";s:17:"Email@Address.com";s:5:"phone";s:10:"0828245092";s:9:"logged_in";i:1;}');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `criteria`
+--
+
+CREATE TABLE IF NOT EXISTS `criteria` (
+  `criteria_id` int(11) NOT NULL AUTO_INCREMENT,
+  `advert_id` int(11) NOT NULL,
+  PRIMARY KEY (`criteria_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `documents`
+--
+
+CREATE TABLE IF NOT EXISTS `documents` (
+  `documents_id` int(11) NOT NULL AUTO_INCREMENT,
+  `cv` varchar(100) DEFAULT NULL,
+  `matric_certificate` varchar(100) DEFAULT NULL,
+  `drivers_license` varchar(100) DEFAULT NULL,
+  `id_book` varchar(100) DEFAULT NULL,
+  `tertiary_qualification` varchar(100) DEFAULT NULL,
+  `id_number` varchar(13) NOT NULL,
+  PRIMARY KEY (`documents_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `institution`
+--
+
+CREATE TABLE IF NOT EXISTS `institution` (
+  `institution_id` int(11) NOT NULL AUTO_INCREMENT,
+  `tertiary_id` int(11) NOT NULL,
+  `institution_name` varchar(50) NOT NULL,
+  `qualification_type` varchar(50) NOT NULL,
+  `course_name` varchar(50) NOT NULL,
+  PRIMARY KEY (`institution_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `job_advert`
+--
+
+CREATE TABLE IF NOT EXISTS `job_advert` (
+  `advert_id` int(11) NOT NULL AUTO_INCREMENT,
+  `job_title` varchar(50) NOT NULL,
+  `job_description` text NOT NULL,
+  `start_date` date NOT NULL,
+  `end_date` date NOT NULL,
+  `salary_offered` decimal(10,0) NOT NULL,
+  `negotiable` tinyint(1) DEFAULT NULL,
+  `criteria_id` int(11) NOT NULL,
+  `benefits` text,
+  PRIMARY KEY (`advert_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `job_history`
+--
+
+CREATE TABLE IF NOT EXISTS `job_history` (
+  `job_history_id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_number` varchar(13) NOT NULL,
+  PRIMARY KEY (`job_history_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `job_list`
+--
+
+CREATE TABLE IF NOT EXISTS `job_list` (
+  `job_list_id` int(11) NOT NULL AUTO_INCREMENT,
+  `job_history_id` int(11) NOT NULL,
+  `start_date` date NOT NULL,
+  `end_date` date DEFAULT NULL,
+  `income` decimal(10,0) NOT NULL,
+  `company_name` varchar(50) NOT NULL,
+  `industry_type` varchar(50) NOT NULL,
+  `reason_for_leaving` text,
+  `job_title` varchar(50) NOT NULL,
+  PRIMARY KEY (`job_list_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `membership`
+--
+
+CREATE TABLE IF NOT EXISTS `membership` (
+  `id_number` varchar(13) NOT NULL,
+  `firstname` varchar(100) NOT NULL,
+  `lastname` varchar(100) NOT NULL,
+  `username` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `phone` varchar(10) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `role` enum('applicant','consultant') NOT NULL DEFAULT 'applicant',
+  `Reg_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `activated` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id_number`),
+  UNIQUE KEY `username` (`username`,`phone`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `membership`
+--
+
+INSERT INTO `membership` (`id_number`, `firstname`, `lastname`, `username`, `email`, `phone`, `password`, `role`, `Reg_time`, `activated`) VALUES
+('1234567890123', 'Renier', 'de Bruyn', 'Renier', 'renierdbruyn@hotmail.com', '1234567890', '6701982d15e61e672e9ea9b6d2b11d69f501d7b2', 'applicant', '2013-06-28 19:11:46', 0),
+('9109205021082', 'Bob', 'Last name', '12345', 'Email@Address.com', '0828245092', '9f93333c549ea80bd9ad93d9f3d653151ab46450', 'applicant', '2013-06-28 08:09:44', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `personal`
+--
+
+CREATE TABLE IF NOT EXISTS `personal` (
+  `person_id` int(11) NOT NULL AUTO_INCREMENT,
+  `address` varchar(255) NOT NULL,
+  `city` varchar(50) NOT NULL,
+  `licence` varchar(20) NOT NULL,
+  `self_description` text NOT NULL,
+  `id_number` varchar(13) NOT NULL,
+  `gender` varchar(20) NOT NULL,
+  `relocate` varchar(10) NOT NULL,
+  `minimum_salary` decimal(11,0) NOT NULL,
+  `prefered_salary` decimal(11,0) NOT NULL,
+  `contract_type` varchar(20) NOT NULL,
+  PRIMARY KEY (`person_id`),
+  KEY `id_number` (`id_number`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `personal`
+--
+
+INSERT INTO `personal` (`person_id`, `address`, `city`, `licence`, `self_description`, `id_number`, `gender`, `relocate`, `minimum_salary`, `prefered_salary`, `contract_type`) VALUES
+(1, 'Blah , /blah, phish paste', 'Durban', '', 'Blah blah fishpaste', '9109205021082', 'Male', 'no', '5000', '15', 'permanent');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `school`
+--
+
+CREATE TABLE IF NOT EXISTS `school` (
+  `school_id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_number` varchar(13) NOT NULL,
+  `school_name` varchar(50) NOT NULL,
+  `ref_name` varchar(50) DEFAULT NULL,
+  `ref_number` varchar(50) DEFAULT NULL,
+  `matric_type` varchar(20) DEFAULT NULL,
+  `highest_level` varchar(20) NOT NULL,
+  PRIMARY KEY (`school_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `school`
+--
+
+INSERT INTO `school` (`school_id`, `id_number`, `school_name`, `ref_name`, `ref_number`, `matric_type`, `highest_level`) VALUES
+(1, '9109205021082', 'BOb', '', '', '', 'Grade 12');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `school_subject`
+--
+
+CREATE TABLE IF NOT EXISTS `school_subject` (
+  `subject_id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_number` varchar(13) NOT NULL,
+  `school_id` int(11) NOT NULL,
+  `school_subject_name` varchar(50) NOT NULL,
+  `school_subject_mark` varchar(20) NOT NULL,
+  PRIMARY KEY (`subject_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `skills`
+--
+
+CREATE TABLE IF NOT EXISTS `skills` (
+  `skill_id` int(11) NOT NULL AUTO_INCREMENT,
+  `skill_name` varchar(50) NOT NULL,
+  `skill_level` varchar(50) NOT NULL,
+  `experience` varchar(50) NOT NULL,
+  `id_number` varchar(13) NOT NULL,
+  PRIMARY KEY (`skill_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tertiary`
+--
+
+CREATE TABLE IF NOT EXISTS `tertiary` (
+  `tertiary_id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_number` varchar(13) NOT NULL,
+  PRIMARY KEY (`tertiary_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tertiary_subject`
+--
+
+CREATE TABLE IF NOT EXISTS `tertiary_subject` (
+  `tertiary_subject_id` int(11) NOT NULL AUTO_INCREMENT,
+  `istitution_id` int(11) NOT NULL,
+  `tertiary_subject_name` varchar(50) NOT NULL,
+  `tertiary_subject_mark` varchar(20) NOT NULL,
+  PRIMARY KEY (`tertiary_subject_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `personal`
+--
+ALTER TABLE `personal`
+  ADD CONSTRAINT `personal_ibfk_1` FOREIGN KEY (`id_number`) REFERENCES `membership` (`id_number`);

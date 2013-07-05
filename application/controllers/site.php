@@ -1,9 +1,28 @@
 <?php
 
+<<<<<<< HEAD
 class site extends CI_Controller{
     
     function index(){
         $data= array();  
+=======
+class site extends CI_Controller {
+
+     private $logged_in;
+
+    function __construct() {
+        parent::__construct();
+
+        if ($this->session->userdata('logged_in')) {
+            $this->logged_in = true;
+        } else {
+            $this->logged_in = false;
+            redirect('login/index');
+        }
+    }
+
+    function members_area() {
+>>>>>>> master
         $data['content'] = 'site/home';
        //  $this->load->view('layout/master_layout', $data);
         if($query = $this->site_model->get_records()){
