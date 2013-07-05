@@ -31,7 +31,7 @@
                 box-shadow: 0 1px 2px rgba(0,0,0,.15);
             }
 
-            .login-form {
+            .contact {
                 margin-left: 65px;
             }
 
@@ -46,29 +46,66 @@
         <div class="container">
             <div class="content">
                 <div class="row">
-                    <div class="login-form">
-                        <h2>login</h2>
+                    <div class="contact">
+                        <h2>Contact</h2>
 <!--                        <div class="alert">
                             <a href="#" class="close" data-dismiss="alert">&times;</a>
                             <strong>Warning!</strong> Best check yo self, you're not looking too good.
                         </div>-->
 
-                        <?php echo form_open('login/validate_credentials'); ?>
+                        <?php echo form_open('contact/submission'); ?>
                             <fieldset>
                                 <div class="clearfix">
+                                    <?php echo 'Firstname'?>
+                                <?php   echo form_input('first name', set_value('firstname')); echo br(); ?>
+
+                                </div>
+                                </br>
+                                
+                                <div class="clearfix">
+                                     <?php echo 'username'?>
                                 <?php   echo form_input('username', set_value('username')); echo br(); ?>
 
                                 </div>
+                                </br>
+                                
                                 <div class="clearfix">
-                                    <?php   echo form_password('password');echo br(); ?>
+                                     <?php echo 'Email'?>
+                                <?php   echo form_input('email', set_value('email')); echo br(); ?>
+
                                 </div>
-                                <button class="btn btn-primary" type="submit">Sign in</button> <?php echo anchor('login/signup', 'Create Account'); ?>
+                                </br>
+                                
+                                <div class="clearfix">
+                                     <?php echo 'telephone'?>
+                                <?php   echo form_input('telephone', set_value('telephone')); echo br(); ?>
+                                </div>
+                                </br>
+                                
+                               <?php $data = array(
+                                'name' => 'content',
+                                'id' => 'content',
+                                'value' => set_value('content'),
+                                'rows' => '6',
+                                'cols' => '70',
+                                'style' => 'margin: 0; padding: 0;',
+                                );
+                                echo "<tr><td>".form_label('Comments: ', 'content'). "</td><td>" . form_textarea($data) . "</td></tr>";
+                               ?>
+                                
+                                <button class="btn btn-primary" type="submit">submit</button> 
                                  
-                                <div class="clearfix">
-                                    <?php echo anchor('login/reset_password', 'Forgot Password?'); ?>
-                                </div>
+                                
                             </fieldset>
                     </div>
                 </div>
             </div>
         </div> <!-- /container -->
+
+
+
+
+
+
+
+
