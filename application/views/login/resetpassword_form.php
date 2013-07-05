@@ -31,7 +31,7 @@
                 box-shadow: 0 1px 2px rgba(0,0,0,.15);
             }
 
-            .login-form {
+            .resetpassword_form {
                 margin-left: 65px;
             }
 
@@ -47,26 +47,25 @@
             <div class="content">
                 <div class="row">
                     <div class="login-form">
-                        <h2>login</h2>
+                        <h2>RESET PASSWORD</h2>
 <!--                        <div class="alert">
                             <a href="#" class="close" data-dismiss="alert">&times;</a>
                             <strong>Warning!</strong> Best check yo self, you're not looking too good.
                         </div>-->
 
-                        <?php echo form_open('login/validate_credentials'); ?>
+                        <?php echo form_open('login/resetpassword'); ?>
                             <fieldset>
+                                
                                 <div class="clearfix">
-                                <?php   echo form_input('username', set_value('username')); echo br(); ?>
+                                <?php   echo form_input('email', set_value('email')); echo br(); ?>
 
                                 </div>
-                                <div class="clearfix">
-                                    <?php   echo form_password('password');echo br(); ?>
-                                </div>
-                                <button class="btn btn-primary" type="submit">Sign in</button> <?php echo anchor('login/signup', 'Create Account'); ?>
+                                
+                                
+                                
+                                <button class="btn btn-primary" type="submit">Retrieve User Password</button> 
                                  
-                                <div class="clearfix">
-                                    <?php echo anchor('login/reset_password', 'Forgot Password?'); ?>
-                                </div>
+                                
                             </fieldset>
                     </div>
                 </div>
