@@ -96,6 +96,20 @@ class profile_model extends CI_Model {
             return FALSE;
         }
     }
+    
+    function edit_school(){
+         $data = array(
+            'id_number' => $this->input->post('id_number'),
+            'school_name' => $this->input->post('school_name'),
+            'ref_name' => $this->input->post('reference_name'),
+            'ref_number' => $this->input->post('reference_phone'), 
+             'ref_number' => $this->input->post('reference_phone'),
+             'matric_type' => $this->input->post('matric'),
+             'highest_level' => $this->input->post('grade'),
+        );
+        $this->db->where('id_number', $this->session->userdata('id_number'));
+        $this->db->update('school', $data);
+    }
 
     function skill() {
         $skillname = $this->input->post('skillname');

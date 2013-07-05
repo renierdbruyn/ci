@@ -9,6 +9,19 @@ foreach ($skill as $row) {
 <html>
     <head>
         <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>/assets/css/bootstrap.css" />
+        <style>
+            span
+            {
+                font-size: 20px;
+                height: 60px;
+                font-weight: normal;
+                padding-bottom: 10px;
+                margin-bottom: 10px;
+            }
+            .input-prepend .add-on{
+                width: 300px;
+            }
+        </style>
     </head>
     <body>
         <div class="container">
@@ -58,7 +71,7 @@ foreach ($skill as $row) {
 //                        
 //                        echo form_dropdown( 'skill_name', $skillname,$this->input->post('skill_name'),$skillnameProp);
                         ?>
-                        <select name="skill_name" class="span7" style=" width: 300px" >
+                        <select name="skill_name" class="span7" style="width: 240px;" >
                             <?php
                             if (isset($skill_name) && !empty($skill_name)) {
                                 echo "<option value='$skill_name'" . set_select('skill_name', $skill_name) . " > " . $skill_name . "</option>";
@@ -102,7 +115,7 @@ foreach ($skill as $row) {
 
                        // echo form_dropdown('skill_level', $skilllevel, $this->input->post('skill_level'), $skilllevelProp);
                         ?>
-                        <select name="skill_level" class="span7" style=" width: 300px" >
+                        <select name="skill_level" class="span7" style="width: 240px;" >
                     <?php
                     if (isset($skill_level) && !empty($skill_level)) {
                         echo "<option value='$skill_level'" . set_select('skill_level', $skill_level) . " > " . $skill_level . "</option>";
@@ -143,7 +156,7 @@ foreach ($skill as $row) {
 
                        // echo form_dropdown('experience', $experience, $this->input->post('experience'), $experienceProp);
                         ?>
-                        <select name="experience" class="span7" style=" width: 300px" >
+                        <select name="experience" class="span7" style="width: 240px;" >
                     <?php
                     if (isset($experience) && !empty($experience)) {
                         echo "<option value='$experience'" . set_select('experience', $experience) . " > " . $experience . "</option>";
@@ -166,6 +179,7 @@ foreach ($skill as $row) {
                     </div>
                     <br>
                     <?php echo form_hidden("id_number",$this->session->userdata('id_number')); ?>
+                    <?php echo isset($info) ? $info : NULL; ?>
                     <div>
                         <input class="btn btn-success" id="prependedInput" type="submit" value="Save Data">
                     </div>

@@ -53,10 +53,10 @@
                             <li><a href="../profile/index">Personal Details</a></li>
                             <li><a href="../profile/school">School Details</a></li>
                             <li><a href="../profile/skill">Skills</a></li>
-                            <li><a href="#">Profile</a></li>
+<!--                            <li><a href="#">Profile</a></li>
                             <li><a href="#">Settings</a></li>
                             <li class="divider"></li>
-                            <li><a href="#">Help</a></li>
+                            <li><a href="#">Help</a></li>-->
                         </ul>
                         <!--                    <a href="../profile/index" class="btn btn-info" type="button" >Personal</a></br>
                                                                <a href="../profile/school" class="btn btn-info" type="button" >School</a> </br>  
