@@ -64,7 +64,7 @@
         <br/>
 
 <?php $this->load->view($content);
-//echo isset($info ) ? $info : NULL; 
+echo isset($info ) ? $info : NULL; 
 ?>
 
     </body>

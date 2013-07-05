@@ -8,46 +8,77 @@ class Login extends CI_Controller {
     }
 
     function index() {
-        $data['style'] = 'login/login_style';
-        $data['content'] = 'login/login_form';
-        $this->load->view('layout/master_layout', $data);
+        //load the session library
+        $this->load->library('session');
+
+        //if form submitted and given captcha word matches one in session
+        if ($this->input->post() && ($this->input->post('word') == $this->session->userdata('word'))) {
+
+            $data['content'] = 'login/login_form';
+            $this->load->view('layout/master_layout', $data);
+        } else {
+            //load codeigniter captcha helper
+            $this->load->helper('captcha');
+
+            $vals = array(
+                'img_path' => './captcha/',
+                'img_url' => 'http://localhost:8080/ci/captcha/',
+                'img_width' => '220',
+                'img_height' => 40,
+                'border' => 0,
+                'expiration' => 7200
+            );
+
+            //create captcha image
+            $cap = create_captcha($vals);
+
+            //store image html code in a varible
+            $data['image'] = $cap['image'];
+
+            //store the captcha word in a session
+            $this->session->set_userdata('word', $cap['word']);
+
+            //$this->load->view('captcha_view.php', $data);
+
+            $data['style'] = 'login/login_style';
+            // $data['captcha_view'] = $this->load->view('captcha_view');
+            $data['content'] = 'login/login_form';
+            $this->load->view('layout/master_layout', $data);
+        }
     }
 
     function validate_credentials() {
-        
+
         $this->form_validation->set_rules('username', 'Username', 'trim|required|min_lenth[5]|xss_clean');
         $this->form_validation->set_rules('password', 'Password', 'trim|required|min_lenth[5]|xss_clean');
-        
-        if($this->form_validation->run() == FALSE){
+
+        if ($this->form_validation->run() == FALSE) {
             $this->index();
-        }
-        else{
+        } else {
             //initial checks on data are okay now check if credentials is valid
             $query = $this->membership_model->login_user();
-        }
-        switch($query) {
-        case 'logged_in' :
-            //authentication complete, sent to loggedin homepage
-             if(isset($_SERVER['HTTP_REFERER']))
-                {
-                    $redirect_to = str_replace(base_url(),'',$_SERVER['HTTP_REFERER']);
-                }
-                else
-                {
-                    $redirect_to = $this->uri->uri_string();
-                }            
- 
-                redirect('login/index?redirect='.$redirect_to);
-            break;
-        case 'incorrect_password' :
-            $this->index();
-            break;
+
+            switch ($query) {
+                case 'logged_in' :
+                    //authentication complete, sent to loggedin homepage
+                    if (isset($_SERVER['HTTP_REFERER'])) {
+                        $redirect_to = str_replace(base_url(), '', $_SERVER['HTTP_REFERER']);
+                    } else {
+                        $redirect_to = $this->uri->uri_string();
+                    }
+
+                    redirect('login/index?redirect=' . $redirect_to);
+                    break;
+                case 'incorrect_password' :
+                    $this->index();
+                    break;
 //        case 'not_activated' :
 //            $this->index();
 //            break;
-        case 'username_not_found' :
-            $this->index();
-            break;
+                case 'username_not_found' :
+                    $this->index();
+                    break;
+            }
         }
         //  $this->load->model('membership_model');
 //        $query = $this->membership_model->validate();
@@ -68,6 +99,7 @@ class Login extends CI_Controller {
 
     function signup() {
         $data['content'] = 'login/signup_form';
+
         $this->load->view('layout/master_layout', $data);
     }
 
@@ -111,8 +143,8 @@ class Login extends CI_Controller {
             echo "ERROR giving email activated page. Please contact " . $this->config->item('admin_email');
         }
     }
-    
-    function logout(){
+
+    function logout() {
         $this->session->sess_destroy();
         redirect('welcome/index');
     }

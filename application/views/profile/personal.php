@@ -1,3 +1,4 @@
+
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/css/bootstrap.css" />
@@ -49,7 +50,7 @@
       <!--Body content-->
       <?php
        // $this->load->helper('form');
-        echo form_open('profile/add_pesonal');
+        echo form_open('profile/add_personal');
       ?>
       <div class="input-prepend">
         <label class="add-on ">Address</label>
@@ -137,7 +138,7 @@
       </div>
       <br>
       <div class="input-prepend">
-        <label class="add-on">Preferred salary per anum</label>
+        <label class="add-on">Prefered salary per anum</label>
         <input class="span7" name="prefered_salary"  type="text" placeholder="R 15 000 ">
       </div>
       <br>
@@ -176,8 +177,9 @@
         <textarea rows="5"  class="span7" name="self_description"></textarea>
       </div>
       <div>
+          <button class="btn btn-success"  type="submit">Save Data</button>
           <?php
-            echo form_button(array('class'=>'span2 btn btn-success', 'name'=>'personal', 'content'=>'Save Data'));
+            //echo form_button(array('class'=>'span2 btn btn-success', 'name'=>'personal', 'content'=>'Save Data'));
             echo form_close();
           ?>
       </div>
