@@ -13,6 +13,14 @@ class Login extends CI_Controller {
         $this->load->view('layout/master_layout', $data);
     }
 
+    
+    function reset_password()
+    {
+       $data['content'] = 'login/resetpassword_form';
+       $this->load->view('layout/master_layout', $data); 
+    }
+    
+    
     function validate_credentials() {
 
         $this->form_validation->set_rules('username', 'Username', 'trim|required|min_lenth[5]|xss_clean');
