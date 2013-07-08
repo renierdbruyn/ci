@@ -9,34 +9,33 @@ class Login extends CI_Controller {
 
     function index() {
         //load the session library
-        $this->load->library('session');
-
         //if form submitted and given captcha word matches one in session
-        if ($this->input->post() && ($this->input->post('word') == $this->session->userdata('word'))) {
-
-            $data['content'] = 'login/login_form';
-            $this->load->view('layout/master_layout', $data);
-        } else {
-            //load codeigniter captcha helper
-            $this->load->helper('captcha');
-
-            $vals = array(
-                'img_path' => './captcha/',
-                'img_url' => 'http://localhost:8080/ci/captcha/',
-                'img_width' => '220',
-                'img_height' => 40,
-                'border' => 0,
-                'expiration' => 7200
-            );
-
-            //create captcha image
-            $cap = create_captcha($vals);
-
-            //store image html code in a varible
-            $data['image'] = $cap['image'];
-
-            //store the captcha word in a session
-            $this->session->set_userdata('word', $cap['word']);
+//        if ($this->input->post() && ($this->input->post('word') == $this->session->userdata('word'))) {
+//
+//            $data['content'] = 'login/login_form';
+//            $this->load->view('layout/master_layout', $data);
+//        } else {
+//            //load codeigniter captcha helper
+//            $this->load->helper('captcha');
+//
+//            $vals = array(
+//                'img_path' => './captcha/',
+//                'img_url' => base_url().'captcha/',
+//               // 'img_url' => 'http://localhost/ci/captcha/',
+//                'img_width' => '220',
+//                'img_height' => 40,
+//                'border' => 0,
+//                'expiration' => 7200
+//            );
+//
+//            //create captcha image
+//            $cap = create_captcha($vals);
+//
+//            //store image html code in a varible
+//            $data['image'] = $cap['image'];
+//
+//            //store the captcha word in a session
+//            $this->session->set_userdata('word', $cap['word']);
 
             //$this->load->view('captcha_view.php', $data);
 
@@ -44,7 +43,7 @@ class Login extends CI_Controller {
             // $data['captcha_view'] = $this->load->view('captcha_view');
             $data['content'] = 'login/login_form';
             $this->load->view('layout/master_layout', $data);
-        }
+//        }
     }
     function login_success(){
         $data['content'] = 'login/login_success';
@@ -73,7 +72,7 @@ class Login extends CI_Controller {
             switch ($query) {
                 case 'logged_in' :
                     //authentication complete, sent to loggedin homepage
-<<<<<<< HEAD
+//<<<<<<< HEAD
 //                    if (isset($_SERVER['HTTP_REFERER'])) {
 //                        $redirect_to = str_replace(base_url(), '', $_SERVER['HTTP_REFERER']);
 //                    } else {
@@ -81,15 +80,8 @@ class Login extends CI_Controller {
 //                    }
                     redirect('login/login_success');
 //                    redirect('login/index?redirect=' . $redirect_to);
-=======
-                    if (isset($_SERVER['HTTP_REFERER'])) {
-                        $redirect_to = str_replace(base_url(), '', $_SERVER['HTTP_REFERER']);
-                    } else {
-                        $redirect_to = $this->uri->uri_string();
-                    }
-
-                    redirect('login/index?redirect=' . $redirect_to);
->>>>>>> origin/Nelly
+//=======
+//>>>>>>> origin/Nelly
                     break;
                 case 'incorrect_password' :
                     $this->index();

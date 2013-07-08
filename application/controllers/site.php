@@ -1,11 +1,8 @@
 <?php
 
-<<<<<<< HEAD
-class site extends CI_Controller{
+//<<<<<<< HEAD    
     
-    function index(){
-        $data= array();  
-=======
+//=======
 class site extends CI_Controller {
 
      private $logged_in;
@@ -20,9 +17,12 @@ class site extends CI_Controller {
             redirect('login/index');
         }
     }
-
+    
+    function index(){
+        $data= array();  
+    }
     function members_area() {
->>>>>>> master
+//>>>>>>> master
         $data['content'] = 'site/home';
        //  $this->load->view('layout/master_layout', $data);
         if($query = $this->site_model->get_records()){

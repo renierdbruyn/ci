@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 <?php
 foreach ($personal as $row) {
     $address = $row->address;
@@ -14,8 +14,6 @@ foreach ($personal as $row) {
     $contract_type = $row->contract_type;
 }
 ?>
-=======
->>>>>>> origin/Nelly
 
 <html>
     <head>
@@ -76,7 +74,7 @@ foreach ($personal as $row) {
             <div class="input-prepend">
 
                 <label class="add-on ">Address</label>
-                <input class="span7" style="width: 240px;" id="fullAddress" name="fullAddress" readonly type="text" placeholder="55 milarina, Newlands west, 4037" style="cursor:pointer; width:300px;" value="<?php echo isset($address) ? $address : set_value('fullAddress'); ?>">
+                <input class="span7" style="width: 240px; cursor: pointer" id="fullAddress" name="fullAddress" readonly type="text" placeholder="55 milarina, Newlands west, 4037" style="cursor:pointer; width:300px;" value="<?php echo isset($address) ? $address : set_value('fullAddress'); ?>">
             </div>
 
             <br>
@@ -263,161 +261,6 @@ foreach ($personal as $row) {
             <?php //echo validation_errors('<p class ="error">');     ?>
         </div>
     </div>
-<<<<<<< HEAD
-=======
-	
-  <div class="container-fluid">
-  <div class="row-fluid">
-    <div class="span2">
-      <!--Sidebar content-->
-      <button class=" span10 btn btn-large" href="site/index">Personal</button>
-      <button class=" span10 btn btn-large">Menu</button>
-      <button class=" span10 btn btn-large">Menu</button>
-      <button class=" span10 btn btn-large">Menu</button>
-      <button class=" span10 btn btn-large">Menu</button>
-      <button class=" span10 btn btn-large">Menu</button>
-    </div>
-    <div class="span10">
-      <!--Body content-->
-      <?php
-       // $this->load->helper('form');
-        echo form_open('profile/add_personal');
-      ?>
-      <div class="input-prepend">
-        <label class="add-on ">Address</label>
-        <input class="span7" id="fullAddress" name="fullAddress" readonly type="text" placeholder="55 milarina, Newlands west, 4037" value="<?php set_value('fullAddress'); ?>" style="cursor:pointer; width: 300px">
-      </div>
-      <br>
-      <div id="addressForm" class="input-prepend">
-        <label class="add-on">Street</label>
-        <input class="span7" id="street" type="text" placeholder="55 Milarina dr">
-        <br>
-        <label class="add-on">Suburb</label>
-        <input class="span7" id="suburb" type="text" placeholder="Newlands west">
-        <br>
-        <label class="add-on">Postal code</label>
-        <input class="span7" id="code" type="text" placeholder="4037">
-        <br>
-          <?php
-            $js='id="addressButton" onclick="get()"';
-            echo form_button('addressButton', 'Save address', $js)
-          ?>
-      </div>
-      <br>
-       <div class="input-prepend">
-        <label class="add-on">City</label>
-         <input class="span7" id="city" name="city" type="text" placeholder="Durban" >
-      
-      </div>
-      <br>
-      
-      <div class="input-prepend">
-        <label class="add-on">License</label>
-        <?php
-            $optlicense= array(
-                'A1'=>'A1',
-                'A'=>'A',
-                'B'=>'B',
-                'EB'=>'EB',
-                'C1'=>'C1',
-                'C'=>'C',
-                'EC1'=>'EC1',
-                'EC'=>'EC',
-            );
-            $licenseProp=array(
-                'class'=>'span7',
-                'name'=>'license',
-                'style'=>'width:300px'
-            );
-           // echo form_dropdown($licenseProp, $optlicense, 'A1');            
-        ?>
-        <select name="licence" class="span7" style=" width: 300px">
-            <option value ="A1">A1</option>
-            <option value ="A">A</option>
-            <option value ="B">B</option>
-            <option value ="EB">EB</option>
-            <option value ="C1">C1</option>
-            <option value ="C">C</option>
-            <option value ="EC1">EC1</option>
-            <option value ="EC">EC</option>
-        </select>
-      </div>
-      <br>
-      <div class="input-prepend">
-        <label class="add-on">Gender</label>
-        <?php
-            $optgender= array(
-                'male'=>'Male',
-                'female'=>'Female',
-            );
-            $genderProp=array(
-                'class'=>'span7',
-                'name'=>'gender'
-            );
-      
-            //echo form_dropdown($genderProp, $optgender, 'male');
-        ?>
-              <select name="gender" class="span7">
-            <option value ="Male">Male</option>
-            <option value ="Female">Female</option>
-        </select>
-      </div>
-      <br>
-       <div class="input-prepend">
-        <label class="add-on">Minimum salary per anum</label>
-        <input class="span7" name="minimum_salary" type="text" placeholder="R 5 000 ">
-      </div>
-      <br>
-      <div class="input-prepend">
-        <label class="add-on">Prefered salary per anum</label>
-        <input class="span7" name="prefered_salary"  type="text" placeholder="R 15 000 ">
-      </div>
-      <br>
-      <div class="input-prepend">
-        <label class="add-on">relocate</label> 
-        <?php
-            $relocate=array(
-                'name'=>'relocate',
-                'value'=>'Yes'
-            );
-            
-            $optrelocate= array(
-                'yes'=>'Yes',
-                'no'=>'No',
-            );
-           // echo form_dropdown($relocate,$optrelocate, 'no');
-        ?>
-         <select name="relocate" class="span7">
-            <option value ="Yes">Yes</option>
-            <option value ="No" selected>No</option>
-        </select>
-      </div>
-       <br>
-      <div class="input-prepend">
-        <label class="add-on">Prefered Contract Type</label> 
-        
-         <select name="contract_type" class="span7">
-            <option value ="permanent">Permanent</option>
-            <option value ="temporary" >Temporary</option>
-            <option value ="contract" >Contract</option>
-        </select>
-      </div>
-        <br>
-      <div class="input-prepend">
-        <label class="add-on">Describe yourself briefly</label> 
-        <textarea rows="5"  class="span7" name="self_description"></textarea>
-      </div>
-      <div>
-          <button class="btn btn-success"  type="submit">Save Data</button>
-          <?php
-            //echo form_button(array('class'=>'span2 btn btn-success', 'name'=>'personal', 'content'=>'Save Data'));
-            echo form_close();
-          ?>
-      </div>
-      
-    </div>
-  </div>
->>>>>>> origin/Nelly
 </div>
 
 </body>

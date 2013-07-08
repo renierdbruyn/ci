@@ -41,36 +41,7 @@
         color: #404040;
     }
 
-<<<<<<< HEAD
         </style>
-        <div class="container">
-            <div class="content">
-                <div class="row">
-                    <div class="login-form">
-                        <h2>login</h2>
-<!--                        <div class="alert">
-                            <a href="#" class="close" data-dismiss="alert">&times;</a>
-                            <strong>Warning!</strong> Best check yo self, you're not looking too good.
-                        </div>-->
-
-                        <?php echo form_open('login/validate_credentials'); ?>
-                            <fieldset>
-                                <div class="clearfix">
-                                <?php   echo form_input('username', set_value('username')); echo br(); ?>
-
-                                </div>
-                                <div class="clearfix">
-                                    <?php   echo form_password('password');echo br(); ?>
-                                </div>
-                                <button class="btn btn-primary" type="submit">Sign in</button> <?php echo anchor('login/signup', 'Create Account'); ?>
-                                 
-                                <div class="clearfix">
-                                    <?php echo anchor('login/reset_password', 'Forgot Password?'); ?>
-                                </div>
-                            </fieldset>
-=======
-
-</style>
 <div class="container">
     <div class="content">
         <div class="row">
@@ -99,11 +70,11 @@
                         echo isset($image) ? $image : null; echo br();
 //$this->view('captcha_view.php'); 
                         ?>
->>>>>>> origin/Nelly
+
                     </div>
                     <div class="clearfix">
-                        <input type="text" name="word" />
-                        <?php br(); ?>
+                        <!--<input type="text" name="word" />-->
+                        <?php br();  //echo base_url();?>
                     </div>
 
                     <button class="btn btn-primary" type="submit">Sign in</button> <?php echo anchor('login/signup', 'Create Account'); ?>

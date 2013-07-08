@@ -1,42 +1,51 @@
 <?php
 
-
 class Upload extends CI_Controller {
 
-	function __construct()
-	{
-		parent::__construct();
-		$this->load->helper(array('form', 'url'));
-	}
+     private $logged_in;
 
-	function index()
-	{
-		$this->load->view('upload_form', array('error' => ' ' ));
-	}
+    function __construct() {
+        parent::__construct();
+        $this->load->model('profile_model');
 
-	function do_upload()
-	{
-		$config['upload_path'] = 'C:/wamp/www/uploads/';
-		$config['allowed_types'] = 'gif|jpg|pdf|docx|dotx';
-		$config['max_size']	= '200';
-		$config['max_width']  = '1024';
-		$config['max_height']  = '768';
+        if ($this->session->userdata('logged_in')) {
+            $this->logged_in = true;
+        } else {
+            $this->logged_in = false;
+            redirect('login/index');
+        }
+    }
 
-		$this->load->library('upload', $config);
+    function index() {
+        $data['error'] = ' ';
+        $data['content'] = 'upload/upload_form';
+        $this->load->view('layout/master_layout', $data);
+    }
 
-		if ( ! $this->upload->do_upload())
-		{
-			$error = array('error' => $this->upload->display_errors());
+    function do_upload() {      
+        $config['upload_path'] = 'http://itstudents.dut.ac.za/201308/uploads';
+        //$config['upload_path'] = 'C:/wamp/www/ci/uploads/';
+        $config['allowed_types'] = 'gif|jpg|pdf|docx|dotx';
+        $config['max_size'] = '200';
+        $config['max_width'] = '1024';
+        $config['max_height'] = '768';
 
-			$this->load->view('upload_form', $error);
-		}
-		else
-		{
-			$data = array('upload_data' => $this->upload->data());
+        $this->load->library('upload', $config);
 
-			$this->load->view('upload_success', $data);
-		}
-	}
+        if (!$this->upload->do_upload()) {
+            $data['error'] = $this->upload->display_errors();
+
+            $data['content'] = 'upload/upload_form';
+            $this->load->view('layout/master_layout', $data);
+        } else {
+            $data = array(//'upload_data' => $this->upload->data(),
+                'content' => 'upload/upload_success'
+            );
+
+            $this->load->view('layout/master_layout', $data);
+        }
+    }
+
 }
 ?>
 
