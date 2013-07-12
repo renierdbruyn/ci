@@ -4,7 +4,7 @@
         <title>Master Page</title>
         <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/bootstrap.css" type="text/css" media="screen" >
             <script src="<?php echo base_url(); ?>assets/js/jquery-1.10.1.min.js"></script>
-            
+
             <?php //$this->load->view($style); ?>
             <style type="text/css" >       
                 *{ margin:0px; padding: 0px; }
@@ -50,17 +50,30 @@
                         </br>
                         <ul class="nav nav-list well">
                             <li class="nav-header">Update Profile</li>
-                            <li><a href="../profile/index">Personal Details</a></li>
-                            <li><a href="../profile/school">School Details</a></li>
-                            <li><a href="../profile/skill">Skills</a></li>
-<!--                            <li><a href="#">Profile</a></li>
-                            <li><a href="#">Settings</a></li>
-                            <li class="divider"></li>
-                            <li><a href="#">Help</a></li>-->
+                            <li><a href="<?php echo base_url(); ?>index.php/profile/index">Personal</a></li>
+                            <li><a href="<?php echo base_url(); ?>index.php/profile/school">School</a></li>
+                            <li><a href="<?php echo base_url(); ?>index.php/profile/skill">Skills</a></li>
+                            <?php
+                            $query = $this->db->get_where('school', array('id_number' => $this->session->userdata('id_number')))->result();
+                            foreach ($query as $row) {
+                                $highest_level = $row->highest_level;
+                                $matric_type = $row->matric_type;
+                            }
+                            if ($matric_type != "null" && isset($matric_type)) {
+                                ?>
+                                <li><a href="<?php echo base_url(); ?>index.php/profile/school_subject">School_subjects</a></li>
+                            <?php } elseif ($matric_type == "null") {
+                                ?>
+                                <li></li>
+
+    <?php } ?>
+                            <!--   <li><a href="#">Settings</a></li>
+                              <li class="divider"></li>
+                              <li><a href="#">Help</a></li>-->
                         </ul>
-                        <?php
-                    }
-                    ?>
+    <?php
+}
+?>
 
                 </div>
                 <div class="span10">
@@ -69,22 +82,22 @@
 
 
                             <li class="first"><?php echo anchor('welcome/index', 'Home'); ?> </li>
-                            <!--<li><?php //echo anchor('site/index', 'Crud');                     ?></li>-->
-                            <?php
+                            <!--<li><?php //echo anchor('site/index', 'Crud');                      ?></li>-->
+<?php
 //                            if ($this->session->userdata('logged_in') === FALSE) {
 //                                echo "";
 //                            } else {
-                            ?>
+?>
                             <!--                                <li><?php // echo anchor('profile/index', 'online cv');     ?>
                                                                 <ul>
-                                                                    <li><?php // echo anchor('profile/index', 'Personal Details');     ?></li>
-                                                                    <li><?php // echo anchor('profile/school', 'School Details');     ?></li>
-                                                                    <li><?php // echo anchor('profile/skill', 'Skills');     ?></li>
+                                                                    <li><?php // echo anchor('profile/index', 'Personal Details');      ?></li>
+                                                                    <li><?php // echo anchor('profile/school', 'School Details');      ?></li>
+                                                                    <li><?php // echo anchor('profile/skill', 'Skills');      ?></li>
                                                                 </ul>
                                                             </li>-->
-                            <?php
+<?php
 //                            }
-                            ?>
+?>
                             <li class="top"><a href="#">Submit CV</a>
                                 <ul>                           
                                     <li><?php echo anchor('upload/index', 'Uploads'); ?></li>
@@ -97,13 +110,13 @@
 
                     </br>
                     <div >
-                        <?php
-                        if ($this->session->userdata('logged_in') === FALSE) {
-                            echo anchor('login/index', "Login");
-                        } else { // its true so..
-                            echo "";
-                        }
-                        ?> <?php
+<?php
+if ($this->session->userdata('logged_in') === FALSE) {
+    echo anchor('login/index', "Login");
+} else { // its true so..
+    echo "";
+}
+?> <?php
                         if ($this->session->userdata('logged_in') === FALSE) {
                             echo "";
                         } else { // its true so..
@@ -116,9 +129,7 @@
                     <br/>
 
 <?php $this->load->view($content);
-
-
- ?>
+?>
                     </br>
 
                 </div>

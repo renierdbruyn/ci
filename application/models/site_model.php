@@ -19,7 +19,7 @@ class site_model extends CI_Model {
     
     function delete_record(){
         $this->db->where('id', $this->uri->segment(3));
-        $this->db->delete('applicant');
+        $this->db->get('applicant');
     }
 
 }

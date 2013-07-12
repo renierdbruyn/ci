@@ -1,8 +1,5 @@
 <?php
 
-//<<<<<<< HEAD    
-    
-//=======
 class site extends CI_Controller {
 
      private $logged_in;
@@ -16,10 +13,17 @@ class site extends CI_Controller {
             $this->logged_in = false;
             redirect('login/index');
         }
-    }
+   }
     
     function index(){
-        $data= array();  
+//         $data['matric_type'] = $query = $this->db->get_where('school', array('id_number' => $this->session->userdata('id_number')))->result();
+//        $this->load->view('profile/subject', $data);  
+        $data['content'] = 'site/home';
+       //  $this->load->view('layout/master_layout', $data);
+        if($query = $this->site_model->get_records()){
+            $data['records'] = $query;
+        }
+         $this->load->view('layout/master_layout', $data);
     }
     function members_area() {
 //>>>>>>> master

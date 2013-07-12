@@ -241,14 +241,6 @@ foreach ($personal as $row) {
             </div>
 
             <br>
-            <div class="clearfix" style="color:red;">
-                <?php echo form_error('self_description'); ?>
-            </div>
-            <div class="input-prepend">
-                <label class="add-on">Describe yourself briefly</label> 
-
-                <textarea rows="5"  class="span7" style="width: 240px;" name="self_description"><?php echo isset($self_description) ? $self_description : set_value('self_description'); ?></textarea>
-            </div>
             <?php echo form_hidden("id_number", $this->session->userdata('id_number')); ?>
             <?php echo isset($info) ? $info : NULL; ?>
             <div>

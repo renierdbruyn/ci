@@ -14,20 +14,26 @@ class profile extends CI_Controller {
             $this->logged_in = false;
             redirect('login/index');
         }
-    }
 
-//    function members_area() {
-//        $data['content'] = 'profile/personal';
-//        $this->load->view('layout/master_layout', $data);
-//    }
-//
-//    function is_logged_in() {
-//        $is_logged_in = $this->session->userdata('is_logged_in');
-//        if (!isset($is_logged_in) || $is_logged_in != TRUE) {
-//            echo 'You need to login in to see this page. <a href="../login">Login</a>';
-//            die();
-//        }
-//    }
+        $tmpl = array(
+            'table_open' => '<table border="0" cellpadding="4" cellspacing="0">',
+            'heading_row_start' => '<tr>',
+            'heading_row_end' => '</tr>',
+            'heading_cell_start' => '<th>',
+            'heading_cell_end' => '</th>',
+            'row_start' => '<tr>',
+            'row_end' => '</tr>',
+            'cell_start' => '<td>',
+            'cell_end' => '</td>',
+            'row_alt_start' => '<tr>',
+            'row_alt_end' => '</tr>',
+            'cell_alt_start' => '<td>',
+            'cell_alt_end' => '</td>',
+            'table_close' => '</table>'
+        );
+
+        $this->table->set_template($tmpl);
+    }
 
     function index() {
         $data['personal'] = $query = $this->db->get_where('personal', array('id_number' => $this->session->userdata('id_number')))->result();
@@ -35,7 +41,6 @@ class profile extends CI_Controller {
         $this->load->view('layout/master_layout', $data);
     }
 
-//<<<<<<< HEAD
     function school() {
         $data['school'] = $query = $this->db->get_where('school', array('id_number' => $this->session->userdata('id_number')))->result();
         $data['content'] = 'profile/school';
@@ -45,10 +50,8 @@ class profile extends CI_Controller {
     function add_school() {
         $id = $this->input->post('id_number');
         $sql = "SELECT id_number FROM school WHERE id_number ='{$id}' LIMIT 1 ";
-        $result=  $this->db->query($sql);
+        $result = $this->db->query($sql);
         $this->form_validation->set_rules('school_name', 'School name', 'trim|required');
-        $this->form_validation->set_rules('reference_name', 'Reference Name', 'trim');
-        $this->form_validation->set_rules('reference_phone', 'Reference phone', 'trim|is_numeric|exact_length[10]');
         $this->form_validation->set_rules('grade', 'Grade', 'required|callback_select_validate');
 
         if ($this->form_validation->run() == FALSE) {
@@ -60,8 +63,9 @@ class profile extends CI_Controller {
             if ($result->num_rows === 1) {
 
                 $this->profile_model->edit_school();
-                $data['school'] = $query = $this->db->get_where('school', array('id_number' => $this->session->userdata('id_number')))->result();$data['info'] = "<script> alert('School Details updated'); </script>";
-                
+                $data['school'] = $query = $this->db->get_where('school', array('id_number' => $this->session->userdata('id_number')))->result();
+                $data['info'] = "<script> alert('School Details updated'); </script>";
+
                 $data['content'] = 'profile/school';
                 $this->load->view('layout/master_layout', $data);
             } else {
@@ -84,7 +88,7 @@ class profile extends CI_Controller {
     function add_skill() {
         $id = $this->input->post('id_number');
         $sql = "SELECT id_number FROM skills WHERE id_number ='{$id}' LIMIT 1 ";
-        $result=  $this->db->query($sql);
+        $result = $this->db->query($sql);
         $this->form_validation->set_rules('skill_name', 'skill name', 'required|callback_select_validate');
         $this->form_validation->set_rules('skill_level', 'skilllevel', 'required|callback_select_validate');
         $this->form_validation->set_rules('experience', 'experience', 'required|callback_select_validate');
@@ -112,22 +116,6 @@ class profile extends CI_Controller {
             }
         }
     }
-//=======
-//    function add_personal() {
-//        $this->form_validation->set_rules('fullAddress', 'Full Address', 'trim');
-//        $this->form_validation->set_rules('city', 'City', 'trim|required');
-//        $this->form_validation->set_rules('licence', ' License', 'trim|required');
-//        $this->form_validation->set_rules('self_description', 'self_description', 'trim|required');
-//        $this->form_validation->set_rules('gender', 'gender', 'trim|required');
-//
-//        $this->form_validation->set_rules('relocate', 'relocate', 'trim|required');
-//        $this->form_validation->set_rules('minimum_salary', 'minimum_salary', 'trim|required');
-//        $this->form_validation->set_rules('prefered_salary', 'prefered_salary', 'trim|required');
-//        $this->form_validation->set_rules('contract_type', 'contract type', 'trim|required');
-////>>>>>>> origin/Nelly
-//
-//        
-//    }
 
     function select_validate($selectValue) {
         // 'null' is the first option and the text says something like "-Choose one-"
@@ -142,15 +130,14 @@ class profile extends CI_Controller {
     function add_personal() {
         $id = $this->input->post('id_number');
         $sql = "SELECT id_number FROM personal WHERE id_number ='{$id}' LIMIT 1 ";
-        $result=  $this->db->query($sql);
-        
+        $result = $this->db->query($sql);
+
         $this->form_validation->set_rules('fullAddress', 'Full Address', 'trim|required');
         $this->form_validation->set_rules('street', 'Street', 'trim|required');
         $this->form_validation->set_rules('suburb', 'Suburb', 'trim|required');
         $this->form_validation->set_rules('code', 'Postal Code', 'trim|required|is_numeric|exact_length[4]');
         $this->form_validation->set_rules('city', 'City', 'trim|required');
         $this->form_validation->set_rules('licence', ' License', 'required|callback_select_validate');
-        $this->form_validation->set_rules('self_description', 'self_description', 'trim|required');
         $this->form_validation->set_rules('gender', 'gender', 'required|callback_select_validate');
         $this->form_validation->set_rules('relocate', 'relocate', 'required|callback_select_validate');
         $this->form_validation->set_rules('minimum_salary', 'minimum_salary', 'trim|required');
@@ -166,7 +153,7 @@ class profile extends CI_Controller {
             if ($result->num_rows === 1) {
 
                 $this->profile_model->edit_personal();
-                $data= array(
+                $data = array(
                     'personal' => $query = $this->db->get_where('personal', array('id_number' => $this->session->userdata('id_number')))->result(),
                     'info' => "<script> alert('Personal Details updataed'); </script>",
                     'content' => 'profile/personal',
@@ -175,38 +162,81 @@ class profile extends CI_Controller {
             } else {
 
                 $this->profile_model->personal();
-                $data= array(
+                $data = array(
                     'personal' => $query = $this->db->get_where('personal', array('id_number' => $this->session->userdata('id_number')))->result(),
                     'info' => "<script> alert('Personal Details saved'); </script>",
                     'content' => 'profile/personal',
                 );
-//                $data['personal'] = $query = $this->db->get_where('personal', array('id_number' => $this->session->userdata('id_number')))->result();
-//                $data['info'] = "<script> alert('Personal Details saved'); </script>";
-//                $data['content'] = 'profile/personal';
-                 $this->load->view('layout/master_layout', $data);
-//=======
-//            if ($query = $this->profile_model->personal()) {
-//                $data['content'] = 'profile/personal';
-//                $data['info'] = 'Details captured successfully';
-//                $this->load->view('layout/master_layout', $data);
-//            } else {
-//                $data['content'] = 'profile/personal';
-//                $data['info'] = 'An error occured please try again';
-////>>>>>>> origin/Nelly
-//                $this->load->view('layout/master_layout', $data);
-//            }
-//            if () {
-//                $data['content'] = 'profile/personal';
-//                $data['info'] = 'Details captured successfully';
-//                $this->load->view('layout/master_layout', $data);
-//            } else {
-//                $data['content'] = 'profile/personal';
-//                //   $data['info'] = 'An error occured please try again';
-//                $this->load->view('layout/master_layout', $data);
-//            }
+
+                $this->load->view('layout/master_layout', $data);
+            }
         }
     }
 
-}
+    function school_subject() {
+        // $config['enable_query_strings'] = TRUE;
+
+        $data = array(
+            'matric_type' => $query = $this->db->get_where('school', array('id_number' => $this->session->userdata('id_number')))->result(),
+            'school_subject' => $query = $this->db->get_where('school_subject', array('id_number' => $this->session->userdata('id_number')))->result(),
+            'info' => "<script> alert('school subject updated'); </script>",
+            'content' => 'profile/schoolSubjects',
+        );
+        $this->load->view('layout/master_layout', $data);
+    }
+
+    function add_school_subject() {
+        if (isset($this->input->post('add'))) {
+            echo"<tr class=\"prototype\">
+                                        <td><input type='hidden' name='id' value='0' class='id' /></td>
+                                        <td><select id='list' name='subject'></select></td>
+                                        <td><input type='text' name='mark'  /></td>
+                                        <td><button class='remove btn btn-danger' name='remove' type='button'>Remove</button>
+                                    </tr>";
+        } elseif (isset($this->input->post('add'))) {
+            
+        }
+        // $config['enable_query_strings'] = TRUE;
+        $id = $this->input->post('id_number');
+        $sql = "SELECT id_number FROM school_subject WHERE id_number ='{$id}' LIMIT 1 ";
+        // $sql1 = "SELECT matric_type FROM school WHERE id_number ='{$id}' LIMIT 1 ";
+        $result = $this->db->query($sql);
+        // $result1 = $this->db->query($sql1);
+//        $this->form_validation->set_rules('subject_list[][subject]', 'Subject', 'required|callback_select_validate');
+//        $this->form_validation->set_rules('subject_list[][mark]', 'Subject', 'required|is_numeric|less_than[100]|is_natural_no_zero');
+//
+//
+//
+//        if ($this->form_validation->run() == FALSE) {
+//            $data['matric_type'] = $query = $this->db->get_where('school', array('id_number' => $this->session->userdata('id_number')))->result();
+//            $data['school_subject'] = $query = $this->db->get_where('school_subject', array('id_number' => $this->session->userdata('id_number')))->result();
+//            $data['content'] = 'profile/schoolSubjects';
+//            //$data['info'] = '';
+//            $this->load->view('layout/master_layout', $data);
+//        } else {
+        if ($result->num_rows === 1) {
+
+            $this->profile_model->edit_school_subject();
+            $data = array(
+                'matric_type' => $query = $this->db->get_where('school', array('id_number' => $this->session->userdata('id_number')))->result(),
+                'school_subject' => $query = $this->db->get_where('school_subject', array('id_number' => $this->session->userdata('id_number')))->result(),
+                'info' => "<script> alert('school subject updated'); </script>",
+                'content' => 'profile/schoolSubjects',
+            );
+            $this->load->view('layout/master_layout', $data);
+        } else {
+
+            $this->profile_model->school_subject();
+            $data = array(
+                'matric_type' => $query = $this->db->get_where('school', array('id_number' => $this->session->userdata('id_number')))->result(),
+                'school_subject' => $query = $this->db->get_where('school_subject', array('id_number' => $this->session->userdata('id_number')))->result(),
+                'info' => "<script> alert('school subject saved'); </script>",
+                'content' => 'profile/schoolSubjects',
+            );
+
+            $this->load->view('layout/master_layout', $data);
+        }
+//        }
+    }
 
 }
